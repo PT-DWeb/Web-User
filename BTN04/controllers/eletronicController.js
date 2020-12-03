@@ -36,3 +36,11 @@ exports.contact = (req, res, next) => {
     res.render('electronic/contact');
 };
 
+
+exports.checkout = (req, res, next) => {
+    res.render('electronic/checkout');
+};
+
+exports.payment = (req, res, next) => {
+    res.render('electronic/payment');
+};

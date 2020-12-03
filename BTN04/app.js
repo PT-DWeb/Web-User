@@ -8,6 +8,7 @@ const { MongoClient } = require("mongodb");
 
 var indexRouter = require('./routes/index');
 var brandsRouter = require('./routes/mobilephonesbrands');
+var pagesRouter = require('./routes/pages');
 //var usersRouter = require('./routes/users');
 //var productsRouter = require('./routes/product'); //import den file js routing
 require('./dal/db');
@@ -27,7 +28,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 //app.use('/users', usersRouter);
 app.use('/mobilephonesbrands', brandsRouter); 
-
+app.use('/pages', pagesRouter); 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
     next(createError(404));
