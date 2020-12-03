@@ -49,3 +49,11 @@ exports.highlightphone = async () => {
     console.dir(highlightphone);
     return highlightphone;
 }
+
+exports.allmobiles = async () => {
+    console.log('model db');
+    const allmobilesCollection = db().collection('Products');
+    const allmobiles = await allmobilesCollection.find({}).toArray();
+    console.dir(allmobiles);
+    return allmobiles;
+}

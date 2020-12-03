@@ -7,6 +7,7 @@ const hbs = require('hbs');
 const { MongoClient } = require("mongodb");
 
 var indexRouter = require('./routes/index');
+var brandsRouter = require('./routes/mobilephonesbrands');
 //var usersRouter = require('./routes/users');
 //var productsRouter = require('./routes/product'); //import den file js routing
 require('./dal/db');
@@ -25,7 +26,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 //app.use('/users', usersRouter);
-//app.use('/product', productsRouter); // Cau hinh khi duong dan /book se duoc routing trong file nay
+app.use('/mobilephonesbrands', brandsRouter); 
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

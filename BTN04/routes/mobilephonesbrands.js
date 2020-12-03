@@ -3,8 +3,6 @@ var router = express.Router();
 var electronicController = require('../controllers/eletronicController');
 //const usersController = require('../controllers/usersController');
 
-/* GET home page. */
-router.get('/', electronicController.index);
-router.get('/about', electronicController.about);
-router.get('/contact', electronicController.contact);
+
+router.get('/allmobiles', electronicController.brands);
 module.exports = router;

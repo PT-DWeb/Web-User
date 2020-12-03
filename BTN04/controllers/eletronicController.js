@@ -20,3 +20,19 @@ exports.index = async (req, res, next) => {
 
     res.render('electronic/index',{newbrands,hottestoffers,highlightphone});
 };
+
+exports.brands = async (req, res, next) => {
+    const allmobiles = await electronicModel.allmobiles();
+    console.log('allmobiles', allmobiles);
+   
+    res.render('electronic/allmobiles',{allmobiles});
+};
+
+exports.about = (req, res, next) => {
+    res.render('electronic/about');
+};
+
+exports.contact = (req, res, next) => {
+    res.render('electronic/contact');
+};
+
