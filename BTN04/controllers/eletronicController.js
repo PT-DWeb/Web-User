@@ -8,21 +8,21 @@
 //     res.render('electronic/index',{products});
 // };
 
-const electronicModel = require('../models/electronicModel');
 
-exports.index = async (req, res, next) => {
-    const newbrands = await electronicModel.newbrands();
-    const hottestoffers = await electronicModel.hottestoffers();
-    const highlightphone = await electronicModel.highlightphone();
-    console.log('New brand', newbrands);
-    console.log('Hottest', hottestoffers);
-    console.log('Highlightphone', highlightphone);
+const productsModel = require('../models/electronicModel')
 
-    res.render('electronic/index',{newbrands,hottestoffers,highlightphone});
+console.log("electronicController.js 1");
+
+exports.product = async(req, res, next) => {
+    //Lấy dữ liệu 
+    console.log("electronicController.js 2");
+    const product = await productsModel.find();
+    console.log(product);
+    res.render('electronic/index', {product});
 };
 
 exports.brands = async (req, res, next) => {
-    const allmobiles = await electronicModel.allmobiles();
+    const allmobiles = await productsModel.find();
     console.log('allmobiles', allmobiles);
    
     res.render('electronic/allmobiles',{allmobiles});
