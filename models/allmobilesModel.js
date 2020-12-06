@@ -1,4 +1,5 @@
 const mongoose= require('mongoose');
+const mongoosePaginate = require('mongoose-paginate-v2');
 const Schema = mongoose.Schema();
 
 console.log("model.js");
@@ -16,5 +17,7 @@ const productSchema = mongoose.Schema({
     screen:{type: String, require: true},
     storage: {type: String, require: true},
 })
+
+productSchema.plugin(mongoosePaginate);
 
 module.exports = mongoose.model('allmobiles', productSchema )

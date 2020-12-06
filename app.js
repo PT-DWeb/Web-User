@@ -34,6 +34,37 @@ hbs.handlebars.registerHelper('for', function(from, to, incr, product ,block) {
   return accum;
 });
 
+hbs.handlebars.registerHelper('equal', function(pagecurrent, value, block) {
+
+    value = "?page=" + value;
+    if(pagecurrent === value)
+    {
+      return true;
+    }
+    return false;
+});
+
+hbs.handlebars.registerHelper('forabc', function(from, to, incr, pagecurrent, totalpages ,block) {
+  var data = [];
+  var object = {};
+  var accum = '';
+  for(var i = from; i < to; i += incr)
+    {
+      console.log(totalpages);
+      if(pagecurrent + i > totalpages - 1){
+        break;
+      }
+      console.log(i);
+      console.log("pageCurrent:  ");
+      object ={linkhasnextpage: "?page=" + (+pagecurrent + i + 1),numnextpage:  +pagecurrent + i + 1};
+      data.push(object);
+      accum += block.fn(data[i]);
+    }
+  
+  return accum;
+});
+
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
