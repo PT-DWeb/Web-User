@@ -71,14 +71,21 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 						<li class="text-center border-right text-white">
 							<i class="fas fa-phone mr-2"></i> 001 234 5678
 						</li>
-						<li class="text-center border-right text-white">
-							<a href="#" data-toggle="modal" data-target="#exampleModal" class="text-white">
-								<i class="fas fa-sign-in-alt mr-2"></i> Log In </a>
-						</li>
-						<li class="text-center text-white">
-							<a href="#" data-toggle="modal" data-target="#exampleModal2" class="text-white">
-								<i class="fas fa-sign-out-alt mr-2"></i>Register </a>
-						</li>
+						{{#if isLogin}}
+							<li class="text-center border-right text-white">
+								<a href="/account" class="text-white">
+									<i class="fas fa-user-circle"></i> Tài khoản </a>
+							</li>
+						{{else}}
+							<li class="text-center border-right text-white">
+								<a href="#" data-toggle="modal" data-target="#exampleModal" class="text-white">
+									<i class="fas fa-sign-in-alt mr-2"></i> Log In </a>
+							</li>
+							<li class="text-center text-white">
+								<a href="#" data-toggle="modal" data-target="#exampleModal2" class="text-white">
+									<i class="fas fa-sign-out-alt mr-2"></i>Register </a>
+							</li>
+						{{/if}}
 					</ul>
 					<!-- //header lists -->
 				</div>
@@ -604,7 +611,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 							<option value="Apple">Apple</option>
 							<option value="Samsung">Samsung</option>
 							<option value="Oppo">Oppo</option>
-							<option value="Xixaomi">Xixaomi</option>
+							<option value="Xixaomi">Xiaomi</option>
 							<option value="Vivo">Vivo</option>
 							<option value="Realme">Realme</option>
 							<option value="Itel">Itel</option>
@@ -1452,6 +1459,28 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 	<!-- //for bootstrap working -->
 	<!-- //js-files -->
 
+
+	{{!-- Check lại --}}
+	<!-- Bootstrap core JavaScript-->
+    <script src="/admin/vendor/jquery/jquery.min.js"></script>
+    <script src="/admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="/admin/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="/admin/js/sb-admin-2.min.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="/admin/vendor/chart.js/Chart.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="/admin/js/demo/chart-area-demo.js"></script>
+    <script src="/admin/js/demo/chart-pie-demo.js"></script>
+
+    <!-- Custom -->
+    {{!-- <script src={{js_file}}></script> --}}
+    <script src="/admin/js/custom.js"></script>
 	
 
 </body>

@@ -20,7 +20,7 @@ exports.product = async(req, res, next) => {
     console.log("electronicController.js 2");
     const product = await allmobilesModel.find();
     //console.log(product);
-    res.render('electronic/index', {product});
+    res.render('electronic/index', {product, isLogin: true});
 };
 
 exports.brands = async (req, res, next) => {
@@ -39,6 +39,7 @@ exports.brands = async (req, res, next) => {
         linkpagecurrent: "?page=" +  allmobiles.page,
         linkhasnextpage:"?page=" +  (+allmobiles.page + 1),
         numnextpage: +allmobiles.page + 1,
+        isLogin: false
     });
     
 };
@@ -88,7 +89,8 @@ exports.search = async (req, res, next) => {
         linkpagecurrent: "?page=" +  allmobiles.page,
         linkhasnextpage:"?page=" +  (+allmobiles.page + 1),
         numnextpage: +allmobiles.page + 1,
-        searchs : "?search=" + search
+        searchs : "?search=" + search,
+        isLogin: true
     });
 };
 
@@ -112,6 +114,7 @@ exports.apple = async (req, res, next) => {
         linkpagecurrent: "?page=" +  allmobiles.page,
         linkhasnextpage:"?page=" +  (+allmobiles.page + 1),
         numnextpage: +allmobiles.page + 1,
+        isLogin: true
     });
 };
 
@@ -133,6 +136,7 @@ exports.samsung = async (req, res, next) => {
         linkpagecurrent: "?page=" +  allmobiles.page,
         linkhasnextpage:"?page=" +  (+allmobiles.page + 1),
         numnextpage: +allmobiles.page + 1,
+        isLogin: true
     });
 };
 

@@ -9,7 +9,7 @@ var expressHbs =  require('express-handlebars');
 var indexRouter = require('./routes/index');
 var brandsRouter = require('./routes/mobilephonesbrands');
 var pagesRouter = require('./routes/pages');
-//var usersRouter = require('./routes/users');
+const usersRouter = require('./routes/users');
 //var productsRouter = require('./routes/product'); //import den file js routing
 
 connectDB();
@@ -80,6 +80,7 @@ app.use('/', indexRouter);
 app.use('/mobilephonesbrands', brandsRouter); 
 app.use('/pages', pagesRouter); 
 
+app.use('/account', usersRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
