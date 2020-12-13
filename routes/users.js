@@ -7,7 +7,7 @@ const accountController = require('../controllers/accountController');
 //   res.send('respond with a resource');
 // });
 
-router.get('/', accountController.displayInfo);
+router.get('/edit', accountController.displayInfo);
 
 router.put('/edit/:id', accountController.changeCustomerAvt);
 

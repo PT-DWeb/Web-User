@@ -1,3 +1,4 @@
+require('dotenv').config();
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -10,6 +11,7 @@ var indexRouter = require('./routes/index');
 var brandsRouter = require('./routes/mobilephonesbrands');
 var pagesRouter = require('./routes/pages');
 const usersRouter = require('./routes/users');
+const methodOverride = require('method-override');
 //var productsRouter = require('./routes/product'); //import den file js routing
 
 connectDB();
@@ -65,6 +67,7 @@ hbs.handlebars.registerHelper('forabc', function(from, to, incr, pagecurrent, to
   return accum;
 });
 
+app.use(methodOverride('_method'));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

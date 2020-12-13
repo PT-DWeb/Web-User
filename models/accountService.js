@@ -10,7 +10,7 @@ cloudinary.config({
     api_secret: process.env.API_SECRET
 })
 
-const Account = require('../models/accoutModel');
+const Account = require('../models/accountModel');
 
 exports.changeAvt = async (req, res, next) => {
     const form = formidable({ multiples: true });
@@ -19,16 +19,15 @@ exports.changeAvt = async (req, res, next) => {
         form.parse(req, async (err, fields, files) => {
             if (err) {
                 reject(err);
-                return;
+                //return;
             }
    
             const coverImg = files.customerAvt;
             console.log(coverImg.path);
-
+            
             if (coverImg && coverImg.size > 0){
                 const fileName = coverImg.path.split('\\').pop() + '.' + coverImg.name.split('.').pop();
-                console.log(fileName);
-                //fs.renameSync(coverImg.path, path.join(__dirname,'/../public/img/products/' + fileName));
+                //console.log(fileName);
                 
                 const filePath = path.join(__dirname, '/../public/images/customerAvts/upload/' + fileName);
                 mv(coverImg.path, filePath, function(err) {
@@ -48,19 +47,31 @@ exports.changeAvt = async (req, res, next) => {
                     });
                 });
 
-                const id= fields.customerID;    
-                fields.customerAvt = cloudinary.url(publicID);
+                const IDQuery = fields._id;  
+
+                // const updateAvt = {
+                //     id: fields.customerID,
+                //     //name: ,
+                //     //password: ,
+                //     //email: ,
+                //     avatar: cloudinary.url(publicID)
+                // };
             
                 await new Promise((resolve, reject) => {
-                    Account.findOneAndUpdate({_id: id}, fields, {upsert: true}, (err, doc) => {
-                        if (err) return res.send(500, {error: err});
-                        return res.send('Succesfully saved.');
+                    Account.findOneAndUpdate({_id: IDQuery}, {avatar: cloudinary.url(publicID)}, (err, doc) => {
+                        if (err) reject(err);
                     });
                     resolve();
                 });
+                res.redirect('/account/edit');
+
+                // Account.findOneAndUpdate({_id: IDQuery}, {avatar: cloudinary.url(publicID)}).then(()=> {
+                //     console.log("Xong! Chuyển hướng...");
+                //     res.redirect('/account/edit');
+                // });
 
             }
-          
+            
             resolve();
         });
     });
