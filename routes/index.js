@@ -9,4 +9,5 @@ router.get('/', electronicController.product);
 router.get('/about', electronicController.about);
 router.get('/contact', electronicController.contact);
 
+
 module.exports = router;

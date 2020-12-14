@@ -9,6 +9,7 @@ var expressHbs =  require('express-handlebars');
 var indexRouter = require('./routes/index');
 var brandsRouter = require('./routes/mobilephonesbrands');
 var pagesRouter = require('./routes/pages');
+var usersRouter =  require('./routes/users');
 //var usersRouter = require('./routes/users');
 //var productsRouter = require('./routes/product'); //import den file js routing
 
@@ -79,6 +80,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/mobilephonesbrands', brandsRouter); 
 app.use('/pages', pagesRouter); 
+app.use('/users', usersRouter); 
 
 
 // catch 404 and forward to error handler

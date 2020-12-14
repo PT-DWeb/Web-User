@@ -20,6 +20,8 @@ exports.product = async(req, res, next) => {
     console.log("electronicController.js 2");
     const product = await allmobilesModel.find();
     //console.log(product);
+   
+    
     res.render('electronic/index', {product});
 };
 
@@ -161,3 +163,7 @@ exports.checkout = (req, res, next) => {
 exports.payment = (req, res, next) => {
     res.render('electronic/payment');
 };
+
+
+
+
