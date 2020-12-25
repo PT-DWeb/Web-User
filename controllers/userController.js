@@ -1,8 +1,18 @@
-const userModel = require('../models/userModel');
-const userService = require('../models/userService');
-const allmobilesModel = require('../models/allmobilesModel');
+//const userModel = require('../models/mongoose/userModel');
+const userService = require('../models/service/userService');
+const allmobilesModel = require('../models/mongoose/productModel');
 
 
+exports.displayFormRegister = (req, res, next) =>{
+
+    res.render("account/userRegister", {register : false});
+}
+
+
+exports.displayFormLogin = (req, res, next) =>{
+
+    res.render("account/userLogin");
+}
 
 exports.addUserToDatabase = async (req, res, next) =>{
     console.log("USER CONTROLLER")
@@ -18,7 +28,12 @@ exports.addUserToDatabase = async (req, res, next) =>{
 
     
     const product = await allmobilesModel.find();
-    res.render('electronic/index', {product, notify1});
+    if(notify1 == false)
+    {
+        res.render('home/index', {product, notify2: true});
+    }
+
+    res.render('home/index', {product, notify1: true});
 }
 
 // exports.alert1 = async (req, res, next) =>{
@@ -29,5 +44,5 @@ exports.addUserToDatabase = async (req, res, next) =>{
 //     //console.log(product);
    
 
-//     res.render('electronic/index', {product, notify: true});
+//     res.render('home/index', {product, notify: true});
 //  }
