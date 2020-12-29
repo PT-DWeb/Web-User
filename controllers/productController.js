@@ -8,8 +8,10 @@ exports.product = async(req, res, next) => {
     console.log("productController.js 2");
     //const product = await allmobilesModel.find();
     const product = await productService.findProduct();
-    console.log(product);
-
+    //console.log(product);
+    console.log("req.protocol");
+    console.log(req.get('Host'));
+    console.log(req.protocol);
     res.render('home/index', {product, isLogin: false, display: true, register: true});
 
 };

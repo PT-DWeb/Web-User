@@ -3,46 +3,62 @@ const userService = require('../models/service/userService');
 const allmobilesModel = require('../models/mongoose/productModel');
 
 
-exports.displayFormRegister = (req, res, next) =>{
+exports.displayFormRegister = (req, res, next) => {
 
-    res.render("account/userRegister", {register : false});
+    res.render("account/userRegister", { register: false });
 }
 
 
-exports.displayFormLogin = (req, res, next) =>{
+exports.displayFormLogin = (req, res, next) => {
+    let message = "";
+    message = req.flash('error');
+    console.log("req.query.to");
+    console.log(req.body);
+    if (message != "") {
+        res.render("account/userLogin", { message, notify: 'block' });
+    }
+    else {
+        res.render("account/userLogin", { notify: 'none' });
+    }
 
-    res.render("account/userLogin");
 }
 
-exports.addUserToDatabase = async (req, res, next) =>{
+exports.checkUserInDatabase = async (req, res, next) => {
     console.log("USER CONTROLLER")
-    
+
+    console.log("req.query.to");
+    console.log(req.body);
+
 
     //notify1 = await userService.addNewUser(req, res, next);
     //res.redirect("/")
-    let notify1 = await userService.addNewUser(req, res, next);
-    
-    console.log('notify');
-    console.log(notify1);
-  
+    const check = await userService.checkUserRegister(req, res, next);
 
-    
-    const product = await allmobilesModel.find();
-    if(notify1 == false)
-    {
-        res.render('home/index', {product, notify2: true});
+
+
+    console.log('registered');
+    console.log(check.isFail);
+
+    if (check.isFailUser == true || check.isFailEmail == true || check.valid == false) {
+        if (check.valid == false) {
+            check.valid = true;
+        }
+        else {
+            check.valid = false;
+        }
+        res.render("account/userRegister", {
+            name: req.body.Name,
+            email: req.body.Email,
+            password: req.body.Password,
+            isFailUser: check.isFailUser,
+            isFailEmail: check.isFailEmail,
+            notExistEmail: check.valid
+        });
     }
 
-    res.render('home/index', {product, notify1: true});
+    //res.redirect("/users/login");
+    await userService.saveTemporaryAccount(req, res, next);
+
+    res.redirect("/mail/send");
+
 }
-
-// exports.alert1 = async (req, res, next) =>{
-//     console.log("VAO USERSS");
- 
-     
-//     const product = await allmobilesModel.find();
-//     //console.log(product);
-   
-
-//     res.render('home/index', {product, notify: true});
-//  }

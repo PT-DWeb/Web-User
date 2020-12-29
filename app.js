@@ -6,15 +6,23 @@ var hbs_sections = require('express-handlebars-sections');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const flash = require('connect-flash');
+const session = require("express-session");
+const methodOverride = require('method-override');
+const { helpers } = require('handlebars');
+
+
+
+const passport = require('./passport/passport');
+const nodemailer = require('./nodemailer/nodemailer');
 const connectDB = require('./data/db');
-
-
 const indexRouter = require('./routes/index');
 const brandsRouter = require('./routes/mobilephonesbrands');
 const pagesRouter = require('./routes/pages');
 const usersRouter = require('./routes/users');
-const methodOverride = require('method-override');
-const { helpers } = require('handlebars');
+const authRouter = require('./routes/auth');
+const mailerRouter = require('./routes/mailer');
+
 
 //var usersRouter =  require('./routes/users');
 //var usersRouter = require('./routes/users');
@@ -98,11 +106,25 @@ app.use(express.urlencoded({
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// passport middleware
+app.use(session({ secret: 'keyboard cat' }));
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(flash());
+
+// pass req.user
+app.use(function (req, res, next) {
+  res.locals.user = req.user
+  next()
+})
+
+
 app.use('/', indexRouter);
 app.use('/mobilephonesbrands', brandsRouter);
 app.use('/pages', pagesRouter);
 app.use('/users', usersRouter);
-app.use('/account', usersRouter);
+app.use('/auth', authRouter);
+app.use('/mail', mailerRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

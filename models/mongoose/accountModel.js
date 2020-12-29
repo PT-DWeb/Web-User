@@ -10,7 +10,8 @@ const accountSchema = mongoose.Schema({
     avatar: {type: String, require: true},
     DoB: {type: String, require: true},
     address: {type: String, require: true},
-    phone: {type: String, require: true}
+    phone: {type: String, require: true},
+
 })
 
 module.exports = mongoose.model('Account', accountSchema, "users" );

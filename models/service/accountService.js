@@ -49,6 +49,9 @@ exports.changeAvt = async (req, res, next) => {
 
                 const IDQuery = fields._id;  
 
+                console.log("ID");
+                console.log(fields);
+
                 // const updateAvt = {
                 //     id: fields.customerID,
                 //     //name: ,
@@ -76,3 +79,4 @@ exports.changeAvt = async (req, res, next) => {
         });
     });
 }
+
