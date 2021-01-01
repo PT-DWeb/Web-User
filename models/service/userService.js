@@ -1,6 +1,6 @@
 const userModel = require("../mongoose/userModel");
 const bcrypt = require('bcrypt');
-const emailValidator = require("email-validator");
+const emailValidator = require('email-deep-validator');
 const saltRounds = 10;
 let accountdata = "abc";
 
@@ -45,12 +45,17 @@ exports.checkUserRegister = async (req, res, next) => {
     const userExist = await userModel.findOne({ name: req.body.Name });
     // Kiểm tra email cố tồn tại trong cơ sở dữ liệu không
     const emailExist = await userModel.findOne({ email: req.body.Email });
-    const emailValid = await emailValidator.validate(req.body.Email);
+    const EmailValidator = new emailValidator();
+    const emailValid = await EmailValidator.verify(req.body.Email);
     console.log("EMAIL VALID");
     //console.log(emailValid.validators.smtp.reason);
     console.log(emailValid);
 
-    check.valid = emailValid;
+    if(emailValid.validMailbox != true)
+    {
+        emailValid.validMailbox = false;
+    }
+    check.valid = emailValid.validMailbox;
 
     console.log("KIEM TRA EMAIL TỒN TẠI KHÔNG");
 
@@ -124,3 +129,4 @@ exports.getTemporaryAccount = (req, res, next) => {
 exports.setTemporaryAccount = (req, res, next) => {
     accountdata = "abc";
 }
+

@@ -1,7 +1,7 @@
 const formidable = require('formidable');
-const fs = require('fs');
+//const fs = require('fs');
 const path = require('path');
-const mv = require('mv');
+//const mv = require('mv');
 const cloudinary = require('cloudinary').v2; 
 
 cloudinary.config({

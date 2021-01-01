@@ -1,11 +1,13 @@
 const bcrypt = require('bcrypt');
 const nodemailer = require("nodemailer");
 
+const nodemailerService = require("../models/service/nodemailerService");
 const userService = require('../models/service/userService');
 
 const saltRounds = 10;
 let count;
 let email;
+let gobalOTP = "";
 
 exports.sendmail = async (req, res, next) => {
     const account = userService.getTemporaryAccount(req, res, next);
@@ -17,13 +19,9 @@ exports.sendmail = async (req, res, next) => {
     })
     console.log("sendmail");
     console.log(account);
-    const smtpTransport = nodemailer.createTransport('smtps://hcmus.hexad%40gmail.com:18212227@smtp.gmail.com');
-    const mail = {
-        from: "From@gmail.com",
-        to: account.email,
-        subject: "MÃ XÁC NHẬN",
-        html: "<b>Mã xác nhận của bạn là: </b>" + OTP
-    }
+    const mailer = await nodemailerService.configEmailToSend(account,OTP);
+    const smtpTransport = (await mailer).smtpTransport;
+    const mail = (await mailer).mail;
 
     smtpTransport.sendMail(mail, function (error, response) {
         if (error) {
@@ -55,6 +53,7 @@ exports.checkFormAuth = async (req, res, next) => {
             res.redirect("/mail/forgetpass");
         }
         if (checkOTP) {
+            gobalOTP = req.body.maxacnhan;
             res.redirect("/mail/changepassword");
         }
         else {
@@ -65,12 +64,12 @@ exports.checkFormAuth = async (req, res, next) => {
     else {
         let checkOTP = await bcrypt.compare(account.name, req.body.maxacnhan);
         if (count === 1) {
-            userService.setTemporaryAccount(req,res,next);
+            userService.setTemporaryAccount(req, res, next);
             res.redirect("/users/register");
         }
         if (checkOTP) {
             await userService.addNewUser(account);
-            userService.setTemporaryAccount(req,res,next);
+            userService.setTemporaryAccount(req, res, next);
             res.redirect("/users/login");
         }
         else {
@@ -99,13 +98,9 @@ exports.checkEmail = async (req, res, next) => {
         })
         console.log("sendmail");
         console.log(account);
-        const smtpTransport = nodemailer.createTransport('smtps://hcmus.hexad%40gmail.com:18212227@smtp.gmail.com');
-        const mail = {
-            from: "From@gmail.com",
-            to: account.email,
-            subject: "MÃ XÁC NHẬN",
-            html: "<b>Mã xác nhận của bạn là: </b>" + OTP
-        }
+        const mailer = await nodemailerService.configEmailToSend(account,OTP);
+        const smtpTransport = (await mailer).smtpTransport;
+        const mail = (await mailer).mail;
 
         smtpTransport.sendMail(mail, function (error, response) {
             if (error) {
@@ -123,10 +118,20 @@ exports.checkEmail = async (req, res, next) => {
 
 
 exports.displayFormChangePassword = async (req, res, next) => {
-    res.render("account/formChangePassword");
+    if (gobalOTP != "") {
+        gobalOTP = "";
+        res.render("account/formChangePassword");
+    }
+    else {
+        res.redirect("/error");
+    }
 }
 
 exports.changePassword = async (req, res, next) => {
+    const checkUser = await userService.findOne("name", req.body.Name);
+    if (checkUser != null) {
+        res.render("account/formChangePassword", { isFailUser: true })
+    }
     const pass = await new Promise((resolve, reject) => {
         bcrypt.hash(req.body.Password, saltRounds, function (err, hash) {
             if (err) reject(err)
@@ -137,7 +142,7 @@ exports.changePassword = async (req, res, next) => {
         password: pass,
         name: req.body.Name
     }
-    await userService.UpdatePassword("email",email,update);
+    await userService.UpdatePassword("email", email, update);
 
     res.redirect("/users/login");
 

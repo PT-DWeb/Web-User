@@ -1,7 +1,8 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 
-var userController = require('../controllers/userController');
+const userController = require('../controllers/userController');
+const accountController = require('../controllers/accountController');
 const passport = require('../passport/passport');
 
 
@@ -31,7 +32,7 @@ router.get('/logout', function (req, res) {
 
 // router.get('/register', userController.alert1)
 
-const accountController = require('../controllers/accountController');
+
 
 /* GET users listing. */
 // router.get('/', function(req, res, next) {

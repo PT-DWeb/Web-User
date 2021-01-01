@@ -37,7 +37,7 @@ exports.checkUserInDatabase = async (req, res, next) => {
 
 
     console.log('registered');
-    console.log(check.isFail);
+  
 
     if (check.isFailUser == true || check.isFailEmail == true || check.valid == false) {
         if (check.valid == false) {
@@ -55,10 +55,10 @@ exports.checkUserInDatabase = async (req, res, next) => {
             notExistEmail: check.valid
         });
     }
+    else
+    {
+        await userService.saveTemporaryAccount(req, res, next);
 
-    //res.redirect("/users/login");
-    await userService.saveTemporaryAccount(req, res, next);
-
-    res.redirect("/mail/send");
-
+        res.redirect("/mail/send");
+    }
 }
