@@ -7,6 +7,10 @@ exports.product = async(req, res, next) => {
     //Lấy dữ liệu 
     const product = await productService.findProduct();
 
+    //console.log(product);
+    console.log("req.protocol");
+    console.log(req.get('Host'));
+    console.log(req.protocol);
     res.render('home/index', {product, isLogin: false, display: true, register: true});
 
 };

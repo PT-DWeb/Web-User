@@ -8,6 +8,8 @@ const userSchema = mongoose.Schema({
     password: {type: String, require: true},
     email: {type: String, require: true},  
     avatar: {type: String},
+    id : {type: String, require: true},
+    token : {type: String, require: true}
 })
 
 
