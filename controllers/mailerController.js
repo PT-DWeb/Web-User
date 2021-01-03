@@ -114,6 +114,9 @@ exports.checkEmail = async (req, res, next) => {
             smtpTransport.close();
         });
     }
+    else{
+        res.render("account/forgetPassword", {notExistEmail: true});
+    }
 }
 
 
