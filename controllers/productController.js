@@ -27,7 +27,7 @@ exports.brands = async (req, res, next) => {
     if(page<0) page=1;
 
     const limit = 9;
-    const offset =(page -1)*limit;
+    // const offset =(page -1)*limit;
 
     
     const nameManufacturer=req.params.nameManufacturer;
@@ -41,18 +41,17 @@ exports.brands = async (req, res, next) => {
     }
     if(nameManufacturer !=undefined && nameManufacturer!="all"){
         const manufacturer= await manufacturerService.findOne({manufacturer: nameManufacturer});
-        
+        console.log(manufacturer);
         filter.idmanufacturer = manufacturer=== null ? undefined : manufacturer._id;
-        
     }
 
     const sort={};
-    if(sortValue==1) sort.price=-1;
-    else if(sortValue==2) sort.price=1;
+    if(sortValue==1) sort.baseprice=-1;
+    else if(sortValue==2) sort.baseprice=1;
     else if(sortValue==3) sort.releaseDay=-1;
     else if(sortValue==4) sort.quantitySold=-1;
 
-    const allmobiles = await productService.listmobiles(offset, limit,filter,sort);
+    const allmobiles = await productService.listmobiles(page, limit, filter,sort);
 
     const pageItem=[];
     let start=1;
@@ -76,6 +75,7 @@ exports.brands = async (req, res, next) => {
         title: nameManufacturer || "all",
         searchValue: searchValue,
         allmobiles: allmobiles.docs,
+        isPagination: allmobiles.totalPages>1,
         pageItem: pageItem, 
         prevPage: addParameterToURL(req.url,"page",allmobiles.prevPage), 
         nextPage: addParameterToURL(req.url,"page",allmobiles.nextPage),

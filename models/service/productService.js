@@ -28,6 +28,57 @@ const getConcurency = (strConcurency) =>{
     return result;
 }
 
+const changeIdManufacturer= async()=>{
+    const products=await datamongoose.find();
+    let idmanufacturer;
+    var iphone=/ipho/i;
+    var samsung=/sam/i;
+    var huawei=/hua/i;
+    var xiaomi=/xiao/i;
+    var oppo=/oppo/i;
+    var vivo=/vivo/i;
+    var itel=/itel/i;
+    var vsmart=/vsmar/i;
+    var realme=/real/i;
+    for(let i of products){ 
+        
+        if(iphone.test(i.name)){
+            idmanufacturer="5fefd77974c412a9040fdb26";
+        }
+        else if(samsung.test(i.name)){
+            idmanufacturer="5fefd79774c412a9040fdb27";
+        }
+        else if(xiaomi.test(i.name)){
+            idmanufacturer="5fefd7ad74c412a9040fdb28";
+        }
+        else if(huawei.test(i.name)){
+            idmanufacturer="5fefd7ba74c412a9040fdb29";
+        }
+        else if(oppo.test(i.name)){
+            idmanufacturer="5fefd7c774c412a9040fdb2a";
+        }
+        else if(vivo.test(i.name)){
+            idmanufacturer="5fefd7c774c412a9040fdb2b";
+        }
+        else if(itel.test(i.name)){
+            idmanufacturer="5fefd7e274c412a9040fdb2c";
+        }
+        else if(vsmart.test(i.name)){
+            idmanufacturer="5fefd7f774c412a9040fdb2d";
+        }
+        else if(realme.test(i.name)){
+            idmanufacturer="5fefd80b74c412a9040fdb2e";
+        }
+        //console.log(idmanufacturer);
+        await datamongoose.findOneAndUpdate(
+            {_id: i._id},
+            {     
+                idmanufacturer:idmanufacturer,
+            }
+        );
+    }
+}
+
 exports.listmobiles = async(pageNumber, itemPerPage, filter,sort) =>{
     // let money;
     // let randomNum;
@@ -38,13 +89,13 @@ exports.listmobiles = async(pageNumber, itemPerPage, filter,sort) =>{
     //     await datamongoose.findOneAndUpdate(
     //         {_id: i._id},
     //         {     
-    //             baseprice: formatConcurency(money),
-    //             discountprice: formatConcurency(money-Math.ceil(money*10/100)),
-    //             quantitySold: randomNum*2,
-    //             price: money-Math.ceil(money*10/100),
+    //             baseprice: money,
+    //             discountprice: money-Math.ceil(money*10/100),
+    //             // quantitySold: randomNum*2,
+    //             // price: money-Math.ceil(money*10/100),
     //         }
     //     );
-
+                
     //     //Khơi tao cac gia tri khong co sẵn 
     //     // if(i.quantityAvailable==undefined){
     //     //     await datamongoose.findOneAndUpdate(
@@ -59,10 +110,12 @@ exports.listmobiles = async(pageNumber, itemPerPage, filter,sort) =>{
     //     //         }
     //     //     );
     //     // }
-    // }
+    //}
+    //Khoi tao lại giá trị id nhà sx
+    //changeIdManufacturer();
 
     const option={
-        offset: pageNumber,
+        offset: (pageNumber-1)*itemPerPage,
         limit: itemPerPage,
         sort: sort,
     }
@@ -105,7 +158,7 @@ exports.findSimilarProduct = async(filter) => {
     const similarProduct = await datamongoose.find({ 
                                             _id:{$ne:product._id},
                                             $or:[{'idmanufacturer': product.idmanufacturer},
-                                                {'price': { $gte: product.price - diff, $lte: product.price +diff},
+                                                {'discountprice': { $gte: product.discountprice - diff, $lte: product.discountprice +diff},
                                             }]
                                         }).
                                         limit(4);

@@ -33,8 +33,8 @@
 												<a href="/mobilephonesbrands/detail/{{_id}}"> {{this.name}} </a>
 											</h4>
 											<div class="info-product-price my-2">
-												<span class="item_price"><b>{{this.discountprice}}đ</b></span>
-												<del>{{this.baseprice}}đ</del>
+												<span class="item_price"><b>{{this.fdiscountprice}}đ</b></span>
+												<del>{{this.fbaseprice}}đ</del>
 											</div>
 											<div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
 												<form action="#" method="post">
@@ -42,9 +42,9 @@
 														<input type="hidden" name="cmd" value="_cart" />
 														<input type="hidden" name="add" value="1" />
 														<input type="hidden" name="business" value=" " />
-														<input type="hidden" name="item_name" value={{this.name}} />
-														<input type="hidden" name="npmamount" value={{this.discountprice}} />
-														<input type="hidden" name="discount_amount" value="1.00" />
+														<input type="hidden" name="item_name" value="{{this.name}}" />
+														<input type="hidden" name="amount" value="{{this.baseprice}}" />
+														<input type="hidden" name="discount_amount" value="{{this.discount}}" />
 														<input type="hidden" name="currency_code" value="USD" />
 														<input type="hidden" name="return" value=" " />
 														<input type="hidden" name="cancel_return" value=" " />
@@ -159,8 +159,8 @@
 												<a href="/mobilephonesbrands/detail/{{_id}}">{{this.name}}</a>
 											</h4>
 											<div class="info-product-price my-2">
-												<span class="item_price"><b>{{this.discountprice}}đ</b></span>
-												<del>{{this.baseprice}}đ</del>
+												<span class="item_price"><b>{{this.fdiscountprice}}đ</b></span>
+												<del>{{this.fbaseprice}}đ</del>
 											</div>
 											<div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
 												<form action="#" method="post">
@@ -168,8 +168,8 @@
 														<input type="hidden" name="cmd" value="_cart" />
 														<input type="hidden" name="add" value="1" />
 														<input type="hidden" name="business" value=" " />
-														<input type="hidden" name="item_name" value={{this.name}} />
-														<input type="hidden" name="amount" value={{this.discountprice}} />
+														<input type="hidden" name="item_name" value="{{this.name}}" />
+														<input type="hidden" name="amount" value="{{this.baseprice}}" />
 														<input type="hidden" name="discount_amount" value="1.00" />
 														<input type="hidden" name="currency_code" value="USD" />
 														<input type="hidden" name="return" value=" " />
@@ -295,8 +295,8 @@
 												<a href="/mobilephonesbrands/detail/{{_id}}">{{this.name}}</a>
 											</h4>
 											<div class="info-product-price my-2">
-												<span class="item_price"><b>{{this.discountprice}}đ</b></span>
-												<del>{{this.baseprice}}đ</del>
+												<span class="item_price"><b>{{this.fdiscountprice}}đ</b></span>
+												<del>{{this.fbaseprice}}đ</del>
 											</div>
 											<div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
 												<form action="#" method="post">
@@ -304,8 +304,8 @@
 														<input type="hidden" name="cmd" value="_cart" />
 														<input type="hidden" name="add" value="1" />
 														<input type="hidden" name="business" value=" " />
-														<input type="hidden" name="item_name" value={{this.name}} />
-														<input type="hidden" name="amount" value={{this.discountprice}} />
+														<input type="hidden" name="item_name" value="{{this.name}}" />
+														<input type="hidden" name="amount" value="{{this.baseprice}}" />
 														<input type="hidden" name="discount_amount" value="1.00" />
 														<input type="hidden" name="currency_code" value="USD" />
 														<input type="hidden" name="return" value=" " />
