@@ -1,11 +1,11 @@
 var express = require('express');
 var router = express.Router();
-var electronicController = require('../controllers/eletronicController');
-//const usersController = require('../controllers/usersController');
+var productController = require('../controllers/productController');
 
-router.get('/search', electronicController.search);
-router.get('/allmobiles/detail/:id', electronicController.detail);
-router.get('/apple', electronicController.apple);
-router.get('/samsung', electronicController.samsung);
-router.get('/allmobiles', electronicController.brands);
+router.get('/detail/:idProduct',productController.detail);
+router.get('/detail/:idProduct/loadPageComment',productController.loadPageComment);
+router.get('/detail/:idProduct/loadChildComment',productController.loadChildComment);
+router.post('/detail/:idProduct',productController.postComment);
+router.get('/:nameManufacturer',productController.brands);
+router.get('/',productController.brands);
 module.exports = router;

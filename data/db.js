@@ -1,17 +1,15 @@
 const mongoose=require("mongoose");
+require('dotenv').config()
 
-console.log("db.js 1");
+const uri = process.env.PRODUCTS_MONGODB_URL;
 
-const uri =
-    "mongodb+srv://hexad:%23Dd18212227@cluster0.ecnii.mongodb.net/StoreManager?retryWrites=true&w=majority";
-
-const connectDB =async()=>{
+const connectDB = async()=>{
     try {
         await mongoose.connect(uri,{
             useCreateIndex:true,
             useNewUrlParser: true,
             useUnifiedTopology:true,
-            useFindAndModify:true
+            useFindAndModify:false
         });
         console.log("Connect successful");
     } catch (error) {

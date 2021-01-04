@@ -1,33 +1,65 @@
-const userModel = require('../models/userModel');
-const userService = require('../models/userService');
-const allmobilesModel = require('../models/allmobilesModel');
+//const userModel = require('../models/mongoose/userModel');
+const userService = require('../models/service/userService');
+const allmobilesModel = require('../models/mongoose/productModel');
 
 
+exports.displayFormRegister = (req, res, next) => {
 
-exports.addUserToDatabase = async (req, res, next) =>{
+    res.render("account/userRegister", { register: false });
+}
+
+
+exports.displayFormLogin = (req, res, next) => {
+    let message = "";
+    message = req.flash('error');
+    console.log("req.query.to");
+    console.log(req.body);
+    if (message != "") {
+        res.render("account/userLogin", { message, notify: 'block' });
+    }
+    else {
+        res.render("account/userLogin", { notify: 'none' });
+    }
+
+}
+
+exports.checkUserInDatabase = async (req, res, next) => {
     console.log("USER CONTROLLER")
-    
+
+    console.log("req.query.to");
+    console.log(req.body);
+
 
     //notify1 = await userService.addNewUser(req, res, next);
     //res.redirect("/")
-    let notify1 = await userService.addNewUser(req, res, next);
-    
-    console.log('notify');
-    console.log(notify1);
+    const check = await userService.checkUserRegister(req, res, next);
+
+
+
+    console.log('registered');
   
 
-    
-    const product = await allmobilesModel.find();
-    res.render('electronic/index', {product, notify1});
+    if (check.isFailUser == true || check.isFailEmail == true || check.valid == false) {
+        if (check.valid == false) {
+            check.valid = true;
+        }
+        else {
+            check.valid = false;
+        }
+        res.render("account/userRegister", {
+            name: req.body.Name,
+            email: req.body.Email,
+            username: req.body.username,
+            password: req.body.Password,
+            isFailUser: check.isFailUser,
+            isFailEmail: check.isFailEmail,
+            notExistEmail: check.valid
+        });
+    }
+    else
+    {
+        await userService.saveTemporaryAccount(req, res, next);
+
+        res.redirect("/mail/send");
+    }
 }
-
-// exports.alert1 = async (req, res, next) =>{
-//     console.log("VAO USERSS");
- 
-     
-//     const product = await allmobilesModel.find();
-//     //console.log(product);
-   
-
-//     res.render('electronic/index', {product, notify: true});
-//  }
