@@ -68,6 +68,14 @@ productSchema.virtual('discount').get(function() {
     return this.baseprice-this.discountprice; 
 });
 
+productSchema.virtual('ram').get(function(){
+    let result;
+    if(this.storage!="None"){
+        result= this.storage.substring(0,this.storage.search(/[a-b]/i)-1);
+    }
+    else result = "0";
+    return +result;
+})
 
 
 productSchema.plugin(mongoosePaginate);

@@ -171,10 +171,12 @@ exports.findSimilarProduct = async (filter) => {
 exports.findProductByInfo = async (filter) => {
     console.log(filter);
 
-    let idmanufacturer;
-    let conditionram = {};
+    let idmanufacturer = "";
+    //let conditionram = {};
+    let conditionram = [];
     let conditionprice = {};
-    let release;
+    let release = "";
+    let querydata = {};
 
 
     // Nhà sản xuất
@@ -183,13 +185,66 @@ exports.findProductByInfo = async (filter) => {
             manufacturer: filter.manufacturer,
         })
         idmanufacturer = ObjectId(findidmanufacturer._id);
+        Object.assign(querydata, { 'idmanufacturer': idmanufacturer });
     }
     // Ram
     // if (filter.storage != null) {
-    //     let string = filter.price;
-    //     let storage = string.slice(len - 3, len);
-
+    //     let stringram = filter.storage;
+    //     const len = stringram.length;
+    //     if (stringram.search('duoi') != -1) {
+    //         Object.assign(conditionram, { $lt: 2 });// nho hon 2GB
+    //     }
+    //     else if (stringram.search('tren') != -1) {
+    //         Object.assign(conditionram, { $gt: 8 });//lon hon 8GB
+    //     }
+    //     else {
+    //         const storage = +stringram.slice(len - 3, len - 2);
+    //         if (storage === 4) {
+    //             // Tu 2tr den 4tr
+    //             Object.assign(conditionram, { $gte: 2, $lte: 4 });
+    //         }
+    //         else if (storage === 8) {
+    //             // Tu 4tr den 7tr
+    //             Object.assign(conditionram, { $gte: 4, $lte: 8 });
+    //         }
+    //     }
+    //     Object.assign(querydata, { 'storage': conditionram });
     // }
+    if (filter.storage != null) {
+        let stringram = filter.storage;
+        const len = stringram.length;
+        if (stringram.search('duoi') != -1) {
+            conditionram.push({ 'storage': /^1GB/ });
+            conditionram.push({ 'storage': 'None' });// nho hon 2GB
+        }
+        else if (stringram.search('tren') != -1) {
+            // lon hon 8GB
+            conditionram.push({ 'storage': /^12GB/ });
+        }
+        else {
+            const storage = +stringram.slice(len - 3, len - 2);
+            if (storage === 4) {
+                // Tu 2tr den 4tr
+                conditionram.push({ 'storage': /^2GB/ });
+                conditionram.push({ 'storage': /^3GB/ });
+                conditionram.push({ 'storage': /^4GB/ });
+            }
+            else if (storage === 8) {
+                // Tu 4tr den 8tr
+                conditionram.push({ 'storage': /^4GB/ });
+        
+                conditionram.push({ 'storage': /^6GB/ });
+               
+                conditionram.push({ 'storage': /^8GB/ });
+            }
+        }
+        //console.log(conditionram);
+        Object.assign(querydata, { '$or': conditionram });
+    }
+
+
+
+    console.log(conditionram);
 
 
     // Gia
@@ -220,7 +275,9 @@ exports.findProductByInfo = async (filter) => {
                 Object.assign(conditionprice, { $gte: 13000000, $lte: 20000000 });
             }
         }
+        Object.assign(querydata, { 'discountprice': conditionprice });
     }
+
 
     // Ngay ra mat
     if (filter.release != null) {
@@ -230,42 +287,15 @@ exports.findProductByInfo = async (filter) => {
         release = new Date();
         release.setDate(release.getDate() - day);
         console.log(release);
+        Object.assign(querydata, { 'releaseDay': { "$gte": release } })
     }
-    //Query
-    const data = await datamongoose.find(
-        {
-            // 'idmanufacturer': idmanufacturer,
-            // 'discountprice': conditionprice,
-            // 'releaseDay': {"$gte": release}
-            // $expr: { 
-            //     storage : {$eq: [{ $substr: [ '$storage', 0, 3 ] },{'storage':/^2GB/}]} 
-            // } 
-            //'storage':{'$regex':/^12GB/}
-            //$expr: { $lt: [ "$baseprice" , "$discountprice" ] }
-            $expr:  {$and: [{'storage':/^8GB/}, {$gte: 
-                [{ $convert: 
-                    { input: {$substr: [ '$storage', 0, 1]}, to: "double" } },
-                8]
-            }]} 
-            //'storage': {$substr: [ '$storage', 0, 1]}
 
-            // discountprice:
-            // {
-            //     $cond: { if: { $gte: ["$baseprice", 26500000] }, then: 23850000, else: 20 }
-            // }
-        }
-        // [
-        //     {
-        //        $project:
-        //          {
-               
-        //            discountprice:
-        //                {
-        //                    $cond: { if: { $gte: ["$baseprice", 26500000] }, then: 23850000, else: 20 }
-        //                }
-        //          }
-        //     }
-        // ]
-    )
+    //Query
+
+
+    const data = await datamongoose.find(querydata)
+
+
+    console.log(data);
     return data;
 }
