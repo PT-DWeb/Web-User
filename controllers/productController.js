@@ -1,7 +1,9 @@
 const productService = require('../models/service/productService');
 const manufacturerService =require('../models/service/manufacturerService'); 
 const commentService = require('../models/service/commentService');
-
+const datamongoose = require("../models/mongoose/productModel");
+const manufacturerModel = require("../models/mongoose/manufacturerModel");
+const { ObjectId } = require('mongodb');
 
 exports.product = async(req, res, next) => {
     //Lấy dữ liệu 
@@ -233,3 +235,21 @@ exports.checkout = (req, res, next) => {
 exports.payment = (req, res, next) => {
     res.render('home/payment');
 };
+
+exports.filter = async(req,res,next)=>{
+    console.log("FILTER")
+    const filter={
+        manufacturer: req.query.manufacturer,
+        storage: req.query.storage,
+        price: req.query.price,
+        release: req.query.release,
+    };
+
+    const product = await productService.findProductByInfo(filter)
+    
+    console.log(product);
+    res.render('home/allmobiles',{
+        allmobiles: product,
+        isLogin:false,
+    });
+}

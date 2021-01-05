@@ -3,8 +3,8 @@ const userService = require('../models/service/userService');
 const allmobilesModel = require('../models/mongoose/productModel');
 
 
-exports.displayFormRegister = (req, res, next) => {
 
+exports.displayFormRegister = (req, res, next) => {
     res.render("account/userRegister", { register: false });
 }
 
@@ -14,6 +14,7 @@ exports.displayFormLogin = (req, res, next) => {
     message = req.flash('error');
     console.log("req.query.to");
     console.log(req.body);
+    req.session
     if (message != "") {
         res.render("account/userLogin", { message, notify: 'block' });
     }
@@ -63,3 +64,4 @@ exports.checkUserInDatabase = async (req, res, next) => {
         res.redirect("/mail/send");
     }
 }
+
