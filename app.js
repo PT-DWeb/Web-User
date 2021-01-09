@@ -107,8 +107,9 @@ app.use(cookieParser('MY SECRET'));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // passport middleware
+app.set('trust proxy',1);
 app.use(session({
-  resave: true,
+  resave: false,
   saveUninitialized: true,
   secret: 'keyboard cat'
 }));

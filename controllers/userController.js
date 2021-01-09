@@ -4,8 +4,8 @@ const allmobilesModel = require('../models/mongoose/productModel');
 const passport = require('../passport/passport');
 
 
-exports.displayFormRegister = (req, res, next) => {
 
+exports.displayFormRegister = (req, res, next) => {
     res.render("account/userRegister", { register: false });
 }
 
@@ -15,6 +15,7 @@ exports.displayFormLogin = (req, res, next) => {
     message = req.flash('error');
     console.log("req.query.to");
     console.log(req.body);
+    req.session
     if (message != "") {
         res.render("account/userLogin", { message, notify: 'block' });
     }

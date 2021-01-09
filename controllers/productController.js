@@ -5,6 +5,9 @@ const cartService = require('../models/service/cartService');
 const orderService=require('../models/service/orderService');
 const detailOrderService=require('../models/service/detailOrderService');
 const handle=require('../public/js/custom/handle');
+// const datamongoose = require("../models/mongoose/productModel");
+// const manufacturerModel = require("../models/mongoose/manufacturerModel");
+// const { ObjectId } = require('mongodb');
 
 exports.product = async(req, res, next) => {
     //Lấy dữ liệu 
@@ -399,4 +402,21 @@ exports.removeCart =async (req,res,next)=>{
     res.json({
         numProduct: numProduct,
         totalPrice: handle.formatConcurency(totalPrice)});
+}
+exports.filter = async(req,res,next)=>{
+    console.log("FILTER")
+    const filter={
+        manufacturer: req.query.manufacturer,
+        storage: req.query.storage,
+        price: req.query.price,
+        release: req.query.release,
+    };
+
+    const product = await productService.findProductByInfo(filter)
+    
+    console.log(product);
+    res.render('home/allmobiles',{
+        allmobiles: product,
+        isLogin:false,
+    });
 }
