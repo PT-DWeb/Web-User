@@ -1,6 +1,7 @@
 //const userModel = require('../models/mongoose/userModel');
 const userService = require('../models/service/userService');
 const allmobilesModel = require('../models/mongoose/productModel');
+const passport = require('../passport/passport');
 
 
 exports.displayFormRegister = (req, res, next) => {
@@ -63,3 +64,30 @@ exports.checkUserInDatabase = async (req, res, next) => {
         res.redirect("/mail/send");
     }
 }
+
+exports.login=(req, res, next) =>{
+    passport.authenticate('local', function(err, user, info) {
+      if (err) { return next(err); }
+      if (!user) { return res.redirect('/login'); }
+      req.logIn(user, function(err) {
+        if (err) { return next(err); }
+
+        let url = req.query.retURL;
+        if(!url)
+        {
+            url="/";
+        }
+          
+    
+        return res.redirect(url);
+        // if(user.role == "5fe9b7b8ea0d1f18102eed2f")
+        // {
+        //     return res.redirect('/');
+        // }
+        // else
+        // {
+        //     return res.redirect('https://www.facebook.com/');
+        // }
+      });
+    })(req, res, next);
+  }

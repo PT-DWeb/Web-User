@@ -1,33 +1,5 @@
 const datamongoose = require("../mongoose/productModel");
 
-const formatConcurency = (concurency)=>{
-    let result="";
-    const arr=[];
-    let tmp;
-    do{
-        tmp=concurency%1000;
-        arr.unshift(tmp==0?"000":tmp);
-        concurency=Math.floor(concurency/1000);
-    }while(concurency>0);
-
-    for(let i=0;i<arr.length;i++){
-        result+=arr[i];
-        result += i==arr.length-1 ? "" :".";
-    }   
-
-    return result;
-}
-
-const getConcurency = (strConcurency) =>{
-    let result=0;
-    const arr=strConcurency.split(".");
-    for(let i of arr){
-        result = result*1000+parseInt(i);
-    }  
-
-    return result;
-}
-
 const changeIdManufacturer= async()=>{
     const products=await datamongoose.find();
     let idmanufacturer;
@@ -118,6 +90,7 @@ exports.listmobiles = async(pageNumber, itemPerPage, filter,sort) =>{
         offset: (pageNumber-1)*itemPerPage,
         limit: itemPerPage,
         sort: sort,
+        lean: true,
     }
     const listmobiles = await datamongoose.paginate(filter,option);
     return listmobiles;
@@ -131,7 +104,7 @@ exports.findProduct = async(object) =>{
 };
 
 exports.findOneProduct = async(object) =>{
-    const product = await datamongoose.findOne(object);
+    const product = await datamongoose.findOne(object).lean();
     //console.log(product);
     return product;
 };

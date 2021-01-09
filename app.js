@@ -12,7 +12,7 @@ const methodOverride = require('method-override');
 const { helpers } = require('handlebars');
 
 
-
+const cartMiddleware=require('./middleware/cartMiddleware')
 const passport = require('./passport/passport');
 const nodemailer = require('./models/service/nodemailerService');
 const connectDB = require('./data/db');
@@ -103,7 +103,7 @@ app.use(express.json());
 app.use(express.urlencoded({
   extended: false
 }));
-app.use(cookieParser());
+app.use(cookieParser('MY SECRET'));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // passport middleware
@@ -115,6 +115,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
+app.use(cartMiddleware);
 
 // pass req.user
 app.use(function (req, res, next) {

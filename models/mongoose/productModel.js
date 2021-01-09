@@ -46,16 +46,6 @@ const formatConcurency = (concurency)=>{
     return result;
 }
 
-const getConcurency = (strConcurency) =>{
-    let result=0;
-    const arr=strConcurency.split(".");
-    for(let i of arr){
-        result = result*1000+parseInt(i);
-    }  
-
-    return result;
-}
-
 productSchema.virtual('fbaseprice').get(function() {
     return formatConcurency(this.baseprice); 
 });
