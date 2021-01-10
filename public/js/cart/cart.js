@@ -1,5 +1,5 @@
 const addToCart = (idProduct)=>{
-    const url="cart/add?idProduct="+idProduct;
+    const url="/payment/cart/add?idProduct="+idProduct;
     let xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {  
@@ -34,7 +34,7 @@ const addToCart = (idProduct)=>{
 }
 
 const popCart = (idProduct)=>{
-    const url="cart/pop?idProduct="+idProduct;
+    const url="/payment/cart/pop?idProduct="+idProduct;
     let xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
@@ -69,7 +69,7 @@ const popCart = (idProduct)=>{
 
 const removeProduct = (idProduct)=>{
     //alert(idProduct);
-    const url="cart/remove?idProduct="+idProduct;
+    const url="/payment/cart/remove?idProduct="+idProduct;
     let xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
@@ -83,4 +83,35 @@ const removeProduct = (idProduct)=>{
     };
     xhttp.open("GET", url, true);
     xhttp.send();
+}
+
+const validate = ()=>{
+    const notify="";
+
+    const name = document.getElementById("name");
+    const phoneNumber = document.getElementById("phoneNumber");
+    const city = document.getElementById("city");
+    const district = document.getElementById("district");
+    const subDistrict = document.getElementById("subDistrict");
+    const street = document.getElementById("street");
+
+    if(name.value==="")
+        notify+="Tên người dùng không được bỏ trống <br>";
+    if(phoneNumber.value==="")
+        notify+="Số điện thoại không được bỏ trống <br>";
+    if(city.value==="")
+        notify+="Tỉnh/Thành phố không được bỏ trống <br>";
+    if(district.value==="")
+        notify+="Quận/Huyện không được bỏ trống <br>";
+    if(subDistrict.value==="")
+        notify+="Xã/Thị trấn không được bỏ trống <br>";
+    if(street.value==="")
+        notify+="Số nhà/Tên đường không được bỏ trống <br>";
+
+    if(phoneNumber.value.match("/^[0-9]+$/") || phoneNumber.value.length<9)
+        notify+="Số điện thoại không hợp lệ <br>";
+    
+    document.getElementById("notify").innerHTML=notify;
+    if(notify!="") document.getElementById("notify").display="block";
+    else document.getElementById("notify").display="none";
 }

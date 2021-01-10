@@ -92,7 +92,7 @@ exports.listmobiles = async (pageNumber, itemPerPage, filter, sort) => {
         offset: (pageNumber - 1) * itemPerPage,
         limit: itemPerPage,
         sort: sort,
-        lean: true,
+        
     }
     const listmobiles = await datamongoose.paginate(filter, option);
     return listmobiles;
@@ -106,7 +106,7 @@ exports.findProduct = async (object) => {
 };
 
 exports.findOneProduct = async(object) =>{
-    const product = await datamongoose.findOne(object).lean();
+    const product = await datamongoose.findOne(object);
     //console.log(product);
     return product;
 };

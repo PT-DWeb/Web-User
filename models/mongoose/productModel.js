@@ -1,5 +1,6 @@
 const mongoose= require('mongoose');
 const mongoosePaginate = require('mongoose-paginate-v2');
+// const mongooseLeanVirtuals = require('mongoose-lean-virtuals');
 const Schema = mongoose.Schema();
 
 console.log("model.js");
@@ -69,5 +70,6 @@ productSchema.virtual('ram').get(function(){
 
 
 productSchema.plugin(mongoosePaginate);
+// productSchema.plugin(mongooseLeanVirtuals);
 
 module.exports = mongoose.model('allmobiles', productSchema )

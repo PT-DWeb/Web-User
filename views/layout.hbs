@@ -520,20 +520,22 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 						</div>
 						<!-- //search -->
 						<!-- cart details -->
-						<div class="col-2 top_nav_right text-center ">
-							<div class="wthreecartaits wthreecartaits2 cart cart box_1">
+						<div class="col-2 pt-1 top_nav_right text-center ">
+							<form action="/payment/cart" method="get">
+								<button class="btn btn-primary my-2 py-2 my-sm-0" type="submit">
+									<i class="fas fa-cart-arrow-down"></i>
+									{{!-- <span id="numbercart">{{numberProduct}}</span> --}}
+								</button>
+							</form>
+							{{!--<div class="wthreecartaits wthreecartaits2 cart cart box_1">
 								<form action="/cart" method="get">
 									<button class="btn btn-primary my-2 my-sm-0" type="submit">
 											<i class="fas fa-cart-arrow-down"></i>
-											<span id="numbercart">{{numberProduct}}</span>
-											<script type="text/x-handlebars-template" id="templateNumProduct"></script>
+											 <span id="numbercart">numberProduct</span> 
 									</button>
 									
-								</form>
-								
-									
-								
-							</div>
+								</form>		
+							</div>--}}
 						</div>
 						<!-- //cart details -->
 					</div>
@@ -679,7 +681,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 								<span>Big</span>
 								Sale
 							</h3>
-							<a class="button2" href="product.html">Mua ngay </a>
+							<a class="button2" href="/mobilephonesbrands/all">Mua ngay </a>
 						</div>
 					</div>
 				</div>
@@ -694,7 +696,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 							<h3 class="font-weight-bold pt-2 pb-lg-5 pb-4">Best
 								<span>Smartphone</span>
 							</h3>
-							<a class="button2" href="product.html">Mua ngay</a>
+							<a class="button2" href="/mobilephonesbrands/all">Mua ngay</a>
 						</div>
 					</div>
 				</div>
@@ -709,7 +711,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 							<h3 class="font-weight-bold pt-2 pb-lg-5 pb-4">New
 								<span>Standard</span>
 							</h3>
-							<a class="button2" href="product.html">Mua ngay </a>
+							<a class="button2" href="/mobilephonesbrands/all">Mua ngay </a>
 						</div>
 					</div>
 				</div>
@@ -724,7 +726,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 							<h3 class="font-weight-bold pt-2 pb-lg-5 pb-4">Today
 								<span>Discount</span>
 							</h3>
-							<a class="button2" href="product.html">Mua ngay </a>
+							<a class="button2" href="/mobilephonesbrands/all">Mua ngay </a>
 						</div>
 					</div>
 				</div>

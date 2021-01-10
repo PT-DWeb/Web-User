@@ -3,7 +3,7 @@ const detailOrderModel=require('../mongoose/detailOrderModel');
 exports.addDetailOrder= async (object)=>{
     const detailOrder = new detailOrderModel({
         idProduct: object.idProduct,
-        idOrder: obect.idOrder,
+        idOrder: object.idOrder,
         quantity: object.quantity,
         total: object.total,
     })

@@ -43,7 +43,7 @@
 						<tr class="rem3" id={{_id}}>
 							<td>3</td>
 							<td>
-								<a href="single.html">
+								<a href="/mobilephonesbrands/detail/{{_id}}">
 									<img src="{{cover}}" alt=" " class="img-responsive" width="100">
 								</a>
 							</td>
@@ -73,30 +73,33 @@
 		<div class="checkout-left">
 			<div class="address_form_agile mt-sm-5 mt-4">
 				<h4 class="mb-sm-4 mb-3">Thông tin đơn hàng</h4>
-				<form action="/payment" method="post" class="creditly-card-form agileinfo_form">
+				<div class="alert alert-danger d-none" id="notify" role="alert">
+  					
+				</div>
+				<form action="/payment/payment" method="post" class="creditly-card-form agileinfo_form">
 					<div class="creditly-wrapper wthree, w3_agileits_wrapper">
 						<div class="information-wrapper">
 							<div class="first-row">
 								<div class="controls form-group">
-									<input class="billing-address-name form-control" type="text" name="name"
-										placeholder="Họ & Tên" value="{{user.name}}">
+									<input class="billing-address-name form-control" type="text" name="name" id="name"
+										placeholder="Họ & Tên" value="{{user.name}}" onchange="validate()">
 								</div>
 								<div class="w3_agileits_card_number_grids">
 									<div class="w3_agileits_card_number_grid_left form-group">
 										<div class="controls">
 											<input type="text" class="form-control" placeholder="Số điện thoại"
-												name="numberPhone" value="{{user.phoneNumber}}">
+												name="phoneNumber" id="phoneNumber" value="{{user.phoneNumber}}" onchange="validate()">
 										</div>
 									</div>
 								</div>
 								<div class="controls form-group">
-									<input type="text" class="form-control" placeholder="Tỉnh/Thành phố" name="city">
-									<input type="text" class="form-control" placeholder="Quận/Huyện" name="district">
-									<input type="text" class="form-control" placeholder="Phường/Xã" name="subDistrict">
-									<input type="text" class="form-control" placeholder="Tòa nhà/Tên đường" name="street">
+									<input type="text" class="form-control" placeholder="Tỉnh/Thành phố" name="city" id="city" onchange="validate()">
+									<input type="text" class="form-control" placeholder="Quận/Huyện" name="district" id="district" onchange="validate()">
+									<input type="text" class="form-control" placeholder="Phường/Xã" name="subDistrict" id="subDistrict" onchange="validate()">
+									<input type="text" class="form-control" placeholder="Tòa nhà/Tên đường" name="street" id="street" onchange="validate()">
 								</div>
 								<div class="controls form-group">
-									<select class="option-w3ls" name="payment_method" placeholder="Phương thức thanh toán">
+									<select class="option-w3ls" name="paymentMethod" placeholder="Phương thức thanh toán">
 										<option value="1">Thanh toán khi nhận hàng</option>
 										<option value="2">Thanh toán online</option>
 									</select>
@@ -128,7 +131,7 @@
 <script type="text/x-handlebars-template" id="templateProduct">
 <td>3</td>
 <td>
-    <a href="single.html">
+    <a href="/mobilephonesbrands/detail/\{{_id}}">
         <img src="\{{cover}}" alt=" " class="img-responsive" width="100">
     </a>
 </td>
