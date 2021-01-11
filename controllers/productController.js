@@ -1,9 +1,10 @@
 const productService = require('../models/service/productService');
 const manufacturerService =require('../models/service/manufacturerService'); 
 const commentService = require('../models/service/commentService');
-const datamongoose = require("../models/mongoose/productModel");
-const manufacturerModel = require("../models/mongoose/manufacturerModel");
-const { ObjectId } = require('mongodb');
+
+// const datamongoose = require("../models/mongoose/productModel");
+// const manufacturerModel = require("../models/mongoose/manufacturerModel");
+// const { ObjectId } = require('mongodb');
 
 exports.product = async(req, res, next) => {
     //Lấy dữ liệu 
@@ -211,7 +212,7 @@ exports.loadChildComment = async(req,res,next)=>{
     const filter={};
     filter.idProduct=req.params.idProduct;
     filter.idParentCmt= req.query.idParentComment;
-    console.log(filter);
+  
     const listComment=await commentService.listChildComment(filter);
     
     res.json({
@@ -224,16 +225,8 @@ exports.about = (req, res, next) => {
 };
 
 exports.contact = (req, res, next) => {
+    console.log(req.user);
     res.render('home/contact');
-};
-
-
-exports.checkout = (req, res, next) => {
-    res.render('home/checkout');
-};
-
-exports.payment = (req, res, next) => {
-    res.render('home/payment');
 };
 
 exports.filter = async(req,res,next)=>{

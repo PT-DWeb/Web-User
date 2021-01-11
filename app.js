@@ -12,13 +12,13 @@ const methodOverride = require('method-override');
 const { helpers } = require('handlebars');
 
 
-
+const cartMiddleware=require('./middleware/cartMiddleware')
 const passport = require('./passport/passport');
 const nodemailer = require('./models/service/nodemailerService');
 const connectDB = require('./data/db');
 const indexRouter = require('./routes/index');
 const brandsRouter = require('./routes/mobilephonesbrands');
-const pagesRouter = require('./routes/pages');
+const paymentRouter = require('./routes/payment');
 const usersRouter = require('./routes/users');
 const authRouter = require('./routes/auth');
 const mailerRouter = require('./routes/mailer');
@@ -104,7 +104,7 @@ app.use(express.json());
 app.use(express.urlencoded({
   extended: false
 }));
-app.use(cookieParser());
+app.use(cookieParser('MY SECRET'));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // passport middleware
@@ -117,6 +117,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
+app.use(cartMiddleware);
 
 // pass req.user
 app.use(function (req, res, next) {
@@ -127,7 +128,7 @@ app.use(function (req, res, next) {
 
 app.use('/', indexRouter);
 app.use('/mobilephonesbrands', brandsRouter);
-app.use('/pages', pagesRouter);
+app.use('/payment', paymentRouter);
 app.use('/users', usersRouter);
 app.use('/auth', authRouter);
 app.use('/mail', mailerRouter);

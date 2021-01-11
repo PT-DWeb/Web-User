@@ -25,126 +25,28 @@
 										<div class="men-cart-pro">
 											<div class="inner-men-cart-pro">
 												<a href="/mobilephonesbrands/detail/{{_id}}"
-													class="link-product-add-cart">Chi Tiết</a>
+													class="link-product-add-cart">Chi tiết</a>
 											</div>
 										</div>
 									</div>
 									<span class="product-new-top">New</span>
-									<div class="item-info-product text-center border-top mt-4 ">
+									<div class="item-info-product text-center border-top mt-4">
 										<h4 class="pt-1">
-											<a href="/mobilephonesbrands/detail/{{_id}}"> {{this.name}} </a>
+											<a href="/mobilephonesbrands/detail/{{_id}}">{{this.name}}</a>
 										</h4>
 										<div class="info-product-price my-2">
 											<span class="item_price"><b>{{this.fdiscountprice}}đ</b></span>
 											<del>{{this.fbaseprice}}đ</del>
 										</div>
-										<div
-											class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
-											<form action="#" method="post">
-												<fieldset>
-													<input type="hidden" name="cmd" value="_cart" />
-													<input type="hidden" name="add" value="1" />
-													<input type="hidden" name="business" value=" " />
-													<input type="hidden" name="item_name" value="{{this.name}}" />
-													<input type="hidden" name="amount" value="{{this.baseprice}}" />
-													<input type="hidden" name="discount_amount"
-														value="{{this.discount}}" />
-													<input type="hidden" name="currency_code" value="USD" />
-													<input type="hidden" name="return" value=" " />
-													<input type="hidden" name="cancel_return" value=" " />
-													<input type="submit" name="submit" value="Chọn Mua"
-														class="button btn" />
-												</fieldset>
-											</form>
+										<div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
+												<input class="button btn" type="button" onclick="addToCart('{{_id}}')" value="Chọn Mua" >
 										</div>
 									</div>
 								</div>
 							</div>
+							
 							{{/for}}
 
-							{{!-- <div class="col-md-4 product-men mt-5">
-								<div class="men-pro-item simpleCart_shelfItem">
-									<div class="men-thumb-item text-center">
-										<img src="images/m2.jpg" alt="">
-										<div class="men-cart-pro">
-											<div class="inner-men-cart-pro">
-												<a href="single.html" class="link-product-add-cart">Quick View</a>
-											</div>
-										</div>
-										<span class="product-new-top">New</span>
-
-									</div>
-									<div class="item-info-product text-center border-top mt-4">
-										<h4 class="pt-1">
-											<a href="single.html">OPPO A37f</a>
-										</h4>
-										<div class="info-product-price my-2">
-											<span class="item_price">$230.00</span>
-											<del>$250.00</del>
-										</div>
-										<div
-											class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
-											<form action="#" method="post">
-												<fieldset>
-													<input type="hidden" name="cmd" value="_cart" />
-													<input type="hidden" name="add" value="1" />
-													<input type="hidden" name="business" value=" " />
-													<input type="hidden" name="item_name" value="OPPO A37f" />
-													<input type="hidden" name="amount" value="230.00" />
-													<input type="hidden" name="discount_amount" value="1.00" />
-													<input type="hidden" name="currency_code" value="USD" />
-													<input type="hidden" name="return" value=" " />
-													<input type="hidden" name="cancel_return" value=" " />
-													<input type="submit" name="submit" value="Chọn Mua"
-														class="button btn" />
-												</fieldset>
-											</form>
-										</div>
-
-									</div>
-								</div>
-							</div>
-							<div class="col-md-4 product-men mt-5">
-								<div class="men-pro-item simpleCart_shelfItem">
-									<div class="men-thumb-item text-center">
-										<img src="images/m3.jpg" alt="">
-										<div class="men-cart-pro">
-											<div class="inner-men-cart-pro">
-												<a href="single.html" class="link-product-add-cart">Quick View</a>
-											</div>
-										</div>
-										<span class="product-new-top">New</span>
-
-									</div>
-									<div class="item-info-product text-center border-top mt-4">
-										<h4 class="pt-1">
-											<a href="single.html">Apple iPhone X</a>
-										</h4>
-										<div class="info-product-price my-2">
-											<span class="item_price">$280.00</span>
-											<del>$300.00</del>
-										</div>
-										<div
-											class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
-											<form action="#" method="post">
-												<fieldset>
-													<input type="hidden" name="cmd" value="_cart" />
-													<input type="hidden" name="add" value="1" />
-													<input type="hidden" name="business" value=" " />
-													<input type="hidden" name="item_name" value="Apple iPhone X" />
-													<input type="hidden" name="amount" value="280.00" />
-													<input type="hidden" name="discount_amount" value="1.00" />
-													<input type="hidden" name="currency_code" value="USD" />
-													<input type="hidden" name="return" value=" " />
-													<input type="hidden" name="cancel_return" value=" " />
-													<input type="submit" name="submit" value="Chọn Mua"
-														class="button btn" />
-												</fieldset>
-											</form>
-										</div>
-									</div>
-								</div>
-							</div> --}}
 						</div>
 					</div>
 					<!-- //first section -->
@@ -164,6 +66,7 @@
 											</div>
 										</div>
 									</div>
+									<span class="product-new-top">New</span>
 									<div class="item-info-product text-center border-top mt-4">
 										<h4 class="pt-1">
 											<a href="/mobilephonesbrands/detail/{{_id}}">{{this.name}}</a>
@@ -172,110 +75,13 @@
 											<span class="item_price"><b>{{this.fdiscountprice}}đ</b></span>
 											<del>{{this.fbaseprice}}đ</del>
 										</div>
-										<div
-											class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
-											<form action="#" method="post">
-												<fieldset>
-													<input type="hidden" name="cmd" value="_cart" />
-													<input type="hidden" name="add" value="1" />
-													<input type="hidden" name="business" value=" " />
-													<input type="hidden" name="item_name" value="{{this.name}}" />
-													<input type="hidden" name="amount" value="{{this.baseprice}}" />
-													<input type="hidden" name="discount_amount" value="1.00" />
-													<input type="hidden" name="currency_code" value="USD" />
-													<input type="hidden" name="return" value=" " />
-													<input type="hidden" name="cancel_return" value=" " />
-													<input type="submit" name="submit" value="Chọn Mua"
-														class="button btn" />
-												</fieldset>
-											</form>
+										<div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
+												<input class="button btn" type="button" onclick="addToCart('{{_id}}')" value="Chọn Mua" >
 										</div>
 									</div>
 								</div>
 							</div>
 							{{/for}}
-
-							{{!-- <div class="col-md-4 product-men mt-5">
-								<div class="men-pro-item simpleCart_shelfItem">
-									<div class="men-thumb-item text-center">
-										<img src="/images/m5.jpg" alt="">
-										<div class="men-cart-pro">
-											<div class="inner-men-cart-pro">
-												<a href="single.html" class="link-product-add-cart">Quick View</a>
-											</div>
-										</div>
-										<span class="product-new-top">New</span>
-
-									</div>
-									<div class="item-info-product text-center border-top mt-4">
-										<h4 class="pt-1">
-											<a href="single.html">Artis Speaker</a>
-										</h4>
-										<div class="info-product-price my-2">
-											<span class="item_price">$349.00</span>
-											<del>$399.00</del>
-										</div>
-										<div
-											class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
-											<form action="#" method="post">
-												<fieldset>
-													<input type="hidden" name="cmd" value="_cart" />
-													<input type="hidden" name="add" value="1" />
-													<input type="hidden" name="business" value=" " />
-													<input type="hidden" name="item_name" value="Artis Speaker" />
-													<input type="hidden" name="amount" value="349.00" />
-													<input type="hidden" name="discount_amount" value="1.00" />
-													<input type="hidden" name="currency_code" value="USD" />
-													<input type="hidden" name="return" value=" " />
-													<input type="hidden" name="cancel_return" value=" " />
-													<input type="submit" name="submit" value="Chọn Mua"
-														class="button btn" />
-												</fieldset>
-											</form>
-										</div>
-
-									</div>
-								</div>
-							</div>
-							<div class="col-md-4 product-men mt-5">
-								<div class="men-pro-item simpleCart_shelfItem">
-									<div class="men-thumb-item text-center">
-										<img src="/images/m6.jpg" alt="">
-										<div class="men-cart-pro">
-											<div class="inner-men-cart-pro">
-												<a href="single.html" class="link-product-add-cart">Quick View</a>
-											</div>
-										</div>
-									</div>
-									<div class="item-info-product text-center border-top mt-4">
-										<h4 class="pt-1">
-											<a href="single.html">Philips Speakers</a>
-										</h4>
-										<div class="info-product-price my-2">
-											<span class="item_price">$249.00</span>
-											<del>$300.00</del>
-										</div>
-										<div
-											class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
-											<form action="#" method="post">
-												<fieldset>
-													<input type="hidden" name="cmd" value="_cart" />
-													<input type="hidden" name="add" value="1" />
-													<input type="hidden" name="business" value=" " />
-													<input type="hidden" name="item_name" value="Philips Speakers" />
-													<input type="hidden" name="amount" value="249.00" />
-													<input type="hidden" name="discount_amount" value="1.00" />
-													<input type="hidden" name="currency_code" value="USD" />
-													<input type="hidden" name="return" value=" " />
-													<input type="hidden" name="cancel_return" value=" " />
-													<input type="submit" name="submit" value="Chọn Mua"
-														class="button btn" />
-												</fieldset>
-											</form>
-										</div>
-									</div>
-								</div>
-							</div>--}}
 						</div>
 					</div>
 					<!-- //second section -->
@@ -296,8 +102,8 @@
 						<div class="row">
 							{{#for 0 3 1 product}}
 							<div class="col-md-4 product-men mt-5">
-								<div class="men-pro-item simpleCart_shelfItem post-summary">
-									<div class="men-thumb-item text-center ">
+								<div class="men-pro-item simpleCart_shelfItem">
+									<div class="men-thumb-item text-center">
 										<img src={{this.cover}} alt="" class="img-fluid">
 										<div class="men-cart-pro">
 											<div class="inner-men-cart-pro">
@@ -309,115 +115,19 @@
 									<span class="product-new-top">New</span>
 									<div class="item-info-product text-center border-top mt-4">
 										<h4 class="pt-1">
-											<a class="post-summary"
-												href="/mobilephonesbrands/detail/{{_id}}">{{this.name}}</a>
+											<a href="/mobilephonesbrands/detail/{{_id}}">{{this.name}}</a>
 										</h4>
 										<div class="info-product-price my-2">
 											<span class="item_price"><b>{{this.fdiscountprice}}đ</b></span>
 											<del>{{this.fbaseprice}}đ</del>
 										</div>
-										<div
-											class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
-											<form action="#" method="post">
-												<fieldset>
-													<input type="hidden" name="cmd" value="_cart" />
-													<input type="hidden" name="add" value="1" />
-													<input type="hidden" name="business" value=" " />
-													<input type="hidden" name="item_name" value="{{this.name}}" />
-													<input type="hidden" name="amount" value="{{this.baseprice}}" />
-													<input type="hidden" name="discount_amount" value="1.00" />
-													<input type="hidden" name="currency_code" value="USD" />
-													<input type="hidden" name="return" value=" " />
-													<input type="hidden" name="cancel_return" value=" " />
-													<input type="submit" name="submit" value="Chọn Mua"
-														class="button btn" />
-												</fieldset>
-											</form>
+										<div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
+												<input class="button btn" type="button" onclick="addToCart('{{_id}}')" value="Chọn Mua" >
 										</div>
-
 									</div>
 								</div>
 							</div>
 							{{/for}}
-							{{!-- <div class="col-md-4 product-men mt-5">
-								<div class="men-pro-item simpleCart_shelfItem">
-									<div class="men-thumb-item text-center">
-										<img src="/images/m8.jpg" alt="">
-										<div class="men-cart-pro">
-											<div class="inner-men-cart-pro">
-												<a href="single.html" class="link-product-add-cart">Quick View</a>
-											</div>
-										</div>
-									</div>
-									<div class="item-info-product text-center border-top mt-4">
-										<h4 class="pt-1">
-											<a href="single.html">BPL Washing Machine</a>
-										</h4>
-										<div class="info-product-price my-2">
-											<span class="item_price">$180.00</span>
-											<del>$200.00</del>
-										</div>
-										<div
-											class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
-											<form action="#" method="post">
-												<fieldset>
-													<input type="hidden" name="cmd" value="_cart" />
-													<input type="hidden" name="add" value="1" />
-													<input type="hidden" name="business" value=" " />
-													<input type="hidden" name="item_name" value="BPL Washing Machine" />
-													<input type="hidden" name="amount" value="180.00" />
-													<input type="hidden" name="discount_amount" value="1.00" />
-													<input type="hidden" name="currency_code" value="USD" />
-													<input type="hidden" name="return" value=" " />
-													<input type="hidden" name="cancel_return" value=" " />
-													<input type="submit" name="submit" value="Chọn Mua"
-														class="button btn" />
-												</fieldset>
-											</form>
-										</div>
-
-									</div>
-								</div>
-							</div>
-							<div class="col-md-4 product-men mt-5">
-								<div class="men-pro-item simpleCart_shelfItem">
-									<div class="men-thumb-item text-center">
-										<img src="/images/m9.jpg" alt="">
-										<div class="men-cart-pro">
-											<div class="inner-men-cart-pro">
-												<a href="single.html" class="link-product-add-cart">Quick View</a>
-											</div>
-										</div>
-									</div>
-									<div class="item-info-product text-center border-top mt-4">
-										<h4 class="pt-1">
-											<a href="single.html">Microwave Oven</a>
-										</h4>
-										<div class="info-product-price my-2">
-											<span class="item_price">$199.00</span>
-											<del>$299.00</del>
-										</div>
-										<div
-											class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
-											<form action="#" method="post">
-												<fieldset>
-													<input type="hidden" name="cmd" value="_cart" />
-													<input type="hidden" name="add" value="1" />
-													<input type="hidden" name="business" value=" " />
-													<input type="hidden" name="item_name" value="Microwave Oven" />
-													<input type="hidden" name="amount" value="199.00" />
-													<input type="hidden" name="discount_amount" value="1.00" />
-													<input type="hidden" name="currency_code" value="USD" />
-													<input type="hidden" name="return" value=" " />
-													<input type="hidden" name="cancel_return" value=" " />
-													<input type="submit" name="submit" value="Chọn Mua"
-														class="button btn" />
-												</fieldset>
-											</form>
-										</div>
-									</div>
-								</div>
-							</div> --}}
 						</div>
 					</div>
 					<!-- //fourth section -->

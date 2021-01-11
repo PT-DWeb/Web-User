@@ -1,5 +1,6 @@
 const mongoose= require('mongoose');
 const mongoosePaginate = require('mongoose-paginate-v2');
+// const mongooseLeanVirtuals = require('mongoose-lean-virtuals');
 const Schema = mongoose.Schema();
 
 console.log("model.js");
@@ -46,16 +47,6 @@ const formatConcurency = (concurency)=>{
     return result;
 }
 
-const getConcurency = (strConcurency) =>{
-    let result=0;
-    const arr=strConcurency.split(".");
-    for(let i of arr){
-        result = result*1000+parseInt(i);
-    }  
-
-    return result;
-}
-
 productSchema.virtual('fbaseprice').get(function() {
     return formatConcurency(this.baseprice); 
 });
@@ -79,5 +70,6 @@ productSchema.virtual('ram').get(function(){
 
 
 productSchema.plugin(mongoosePaginate);
+// productSchema.plugin(mongooseLeanVirtuals);
 
 module.exports = mongoose.model('allmobiles', productSchema )

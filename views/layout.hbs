@@ -109,7 +109,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 	</div>
 
 	<!-- Button trigger modal(select-location) -->
-	<div id="small-dialog1" class="mfp-hide">
+	{{!-- <div id="small-dialog1" class="mfp-hide">
 		<div class="select-city">
 			<h3>
 				<i class="fas fa-map-marker"></i> Please Select Your Location
@@ -485,7 +485,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 			</select>
 			<div class="clearfix"></div>
 		</div>
-	</div>
+	</div> --}}
 	<!-- //shop locator (popup) -->
 
 	<!-- modals -->
@@ -520,16 +520,22 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 						</div>
 						<!-- //search -->
 						<!-- cart details -->
-						<div class="col-2 top_nav_right text-center mt-sm-0 mt-2">
-							<div class="wthreecartaits wthreecartaits2 cart cart box_1">
-								<form action="#" method="post" class="last">
-									<input type="hidden" name="cmd" value="_cart">
-									<input type="hidden" name="display" value="1">
-									<button class="btn w3view-cart" type="submit" name="submit" value="">
-										<i class="fas fa-cart-arrow-down"></i>
+						<div class="col-2 pt-1 top_nav_right text-center ">
+							<form action="/payment/cart" method="get">
+								<button class="btn btn-primary my-2 py-2 my-sm-0" type="submit">
+									<i class="fas fa-cart-arrow-down"></i>
+									{{!-- <span id="numbercart">{{numberProduct}}</span> --}}
+								</button>
+							</form>
+							{{!--<div class="wthreecartaits wthreecartaits2 cart cart box_1">
+								<form action="/cart" method="get">
+									<button class="btn btn-primary my-2 my-sm-0" type="submit">
+											<i class="fas fa-cart-arrow-down"></i>
+											 <span id="numbercart">numberProduct</span> 
 									</button>
-								</form>
-							</div>
+									
+								</form>		
+							</div>--}}
 						</div>
 						<!-- //cart details -->
 					</div>
@@ -675,7 +681,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 								<span>Big</span>
 								Sale
 							</h3>
-							<a class="button2" href="product.html">Mua ngay </a>
+							<a class="button2" href="/mobilephonesbrands/all">Mua ngay </a>
 						</div>
 					</div>
 				</div>
@@ -690,7 +696,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 							<h3 class="font-weight-bold pt-2 pb-lg-5 pb-4">Best
 								<span>Smartphone</span>
 							</h3>
-							<a class="button2" href="product.html">Mua ngay</a>
+							<a class="button2" href="/mobilephonesbrands/all">Mua ngay</a>
 						</div>
 					</div>
 				</div>
@@ -705,7 +711,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 							<h3 class="font-weight-bold pt-2 pb-lg-5 pb-4">New
 								<span>Standard</span>
 							</h3>
-							<a class="button2" href="product.html">Mua ngay </a>
+							<a class="button2" href="/mobilephonesbrands/all">Mua ngay </a>
 						</div>
 					</div>
 				</div>
@@ -720,7 +726,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 							<h3 class="font-weight-bold pt-2 pb-lg-5 pb-4">Today
 								<span>Discount</span>
 							</h3>
-							<a class="button2" href="product.html">Mua ngay </a>
+							<a class="button2" href="/mobilephonesbrands/all">Mua ngay </a>
 						</div>
 					</div>
 				</div>
@@ -1425,9 +1431,12 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <!-- Custom -->
     {{!-- <script src={{js_file}}></script> --}}
     <script src="/admin/js/custom.js"></script>
+
+	{{!-- handlebars --}}
+	<script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
 	
 	{{!-- Ham xu ly tu dinh nghia --}}
-	<script src="/js/handle.js"></script>
+	<script src="/js/cart/cart.js"></script>
 
 	{{{_sections.js}}}	
 	{{{_sections.jsDetail}}}	
