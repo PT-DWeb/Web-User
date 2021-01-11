@@ -46,15 +46,16 @@ exports.checkUserRegister = async (req, res, next) => {
     // Kiểm tra email cố tồn tại trong cơ sở dữ liệu không
     const emailExist = await userModel.findOne({ email: req.body.Email });
     const EmailValidator = new emailValidator();
-    const emailValid = await EmailValidator.verify(req.body.Email);
+    let emailValid = await EmailValidator.verify(req.body.Email);
     console.log("EMAIL VALID");
     //console.log(emailValid.validators.smtp.reason);
     console.log(emailValid);
 
-    if(emailValid.validMailbox != true)
+    while(emailValid.validMailbox == null)
     {
-        emailValid.validMailbox = false;
+        emailValid = await EmailValidator.verify(req.body.Email);
     }
+    
     check.valid = emailValid.validMailbox;
 
     console.log("KIEM TRA EMAIL TỒN TẠI KHÔNG");
@@ -94,6 +95,7 @@ exports.checkUser = async (username, password) => {
     }
     let checkPassword = await bcrypt.compare(password, user.password);
     if (checkPassword) {
+        
         return user;
     }
 
@@ -117,8 +119,10 @@ exports.saveTemporaryAccount = async (req, res, next) => {
     accountdata = {
         name: req.body.Name,
         password: hashedPassword,
+        userName: req.body.username,
         email: req.body.Email,
         avatar: 'http://ssl.gstatic.com/accounts/ui/avatar_2x.png',
+        role: "5fe9b7b8ea0d1f18102eed2f"
     };
 }
 

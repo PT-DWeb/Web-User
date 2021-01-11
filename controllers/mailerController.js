@@ -89,7 +89,7 @@ exports.checkEmail = async (req, res, next) => {
     const account = await userService.findOne("email", req.body.Email);
     email = req.body.Email;
     console.log(account);
-    if (account != null) {
+    if (!account.id && account != null) {
         const OTP = await new Promise((resolve, reject) => {
             bcrypt.hash(account.name, saltRounds, function (err, hash) {
                 if (err) reject(err)
@@ -114,6 +114,9 @@ exports.checkEmail = async (req, res, next) => {
             smtpTransport.close();
         });
     }
+    else{
+        res.render("account/forgetPassword", {notExistEmail: true});
+    }
 }
 
 
@@ -129,7 +132,7 @@ exports.displayFormChangePassword = async (req, res, next) => {
 
 exports.changePassword = async (req, res, next) => {
     const checkUser = await userService.findOne("name", req.body.Name);
-    if (checkUser != null) {
+    if (checkUser != null && checkUser.email != email) {
         res.render("account/formChangePassword", { isFailUser: true })
     }
     const pass = await new Promise((resolve, reject) => {
