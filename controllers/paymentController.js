@@ -174,6 +174,7 @@ exports.removeCart =async (req,res,next)=>{
     res.json({
         numProduct: numProduct,
         totalPrice: handle.formatConcurency(totalPrice)});
+<<<<<<< HEAD
 }
 
 
@@ -185,4 +186,6 @@ exports.history=async(req,res,next)=>{
         listOrder: listOrder,
         isEmpty: listOrder.length<=0
     });
+=======
+>>>>>>> origin/18120318nv2
 }
