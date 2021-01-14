@@ -40,9 +40,9 @@ exports.payment = async(req, res, next) => {
 
     const cart = await cartService.cart(sessionId); 
 
-    console.log("PAYMENT");
-    console.log(req.body);
-    console.log(req.user._id);
+    // console.log("PAYMENT");
+    // console.log(req.body);
+    // console.log(req.user._id);
     //Tạo hóa đơn
     const object={
         orderDate: Date.now(),
@@ -64,11 +64,12 @@ exports.payment = async(req, res, next) => {
     const cartProduct=cart.listProduct;
     let numProduct=0;
     for(let i in cartProduct){
-        product = await productService.findOneProduct({_id:i});
+        product = (await productService.findOneProduct({_id:i})).toObject();
         product.idOrder=idOrder;
         product.total= parseInt(cartProduct[i])*parseInt(product.discountprice);
         product.quantity= parseInt(cartProduct[i]);
 
+        console.log(product);
         detailOrderService.addDetailOrder(product);
         totalPrice+=product.total;
         numProduct+=1;
@@ -123,8 +124,16 @@ exports.addtoCart =async (req,res,next)=>{
     const cart = await cartService.cart(sessionId); 
     const numProduct =Object.keys(cart.listProduct).length;
 
+
     let totalPrice=0;
-    const product=(await productService.findOneProduct({_id:idProduct})).toObject();
+    let product;
+    for(let i in cart.listProduct){
+        product = await productService.findOneProduct({_id:i});
+        product.total= parseInt(cart.listProduct[i])*parseInt(product.discountprice);
+        totalPrice+=product.total;
+    }
+
+    product=(await productService.findOneProduct({_id:idProduct})).toObject();
     const cartProduct=cart.listProduct[idProduct];
     product.total= parseInt(cartProduct)*parseInt(product.discountprice);
     product.quantity= parseInt(cartProduct);
@@ -145,14 +154,19 @@ exports.popCart =async (req,res,next)=>{
     let totalPrice=0;
     const cart = await cartService.cart(sessionId); 
     const numProduct =Object.keys(cart.listProduct).length;
+    
+    let product;
+    for(let i in cart.listProduct){
+        product = await productService.findOneProduct({_id:i});
+        product.total= parseInt(cart.listProduct[i])*parseInt(product.discountprice);
+        totalPrice+=product.total;
+    }
 
-    const product=(await productService.findOneProduct({_id:idProduct})).toObject();
+    product=(await productService.findOneProduct({_id:idProduct})).toObject();
     const cartProduct=cart.listProduct[idProduct];
     product.total= parseInt(cartProduct)*parseInt(product.discountprice);
     product.quantity= parseInt(cartProduct);
     product.ftotal=handle.formatConcurency(product.total);
-
-    
 
     res.json({
         numProduct: numProduct,
@@ -169,12 +183,18 @@ exports.removeCart =async (req,res,next)=>{
     let totalPrice=0;
     const cart = await cartService.cart(sessionId); 
     const numProduct =Object.keys(cart.listProduct).length;
+   
+    let product;
+    for(let i in cart.listProduct){
+        product = await productService.findOneProduct({_id:i});
+        product.total= parseInt(cart.listProduct[i])*parseInt(product.discountprice);
+        totalPrice+=product.total;
+    }
 
     console.log(product);
     res.json({
         numProduct: numProduct,
         totalPrice: handle.formatConcurency(totalPrice)});
-<<<<<<< HEAD
 }
 
 
@@ -186,6 +206,4 @@ exports.history=async(req,res,next)=>{
         listOrder: listOrder,
         isEmpty: listOrder.length<=0
     });
-=======
->>>>>>> origin/18120318nv2
 }

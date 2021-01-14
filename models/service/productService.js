@@ -118,9 +118,20 @@ exports.findNewProduct = async (numProduct) => {
     const product = await datamongoose.find().limit(numProduct).sort(sort);
     return product;
 }
+
+exports.findOfferProduct = async (numProduct) => {
+    const sort = {
+        discount: -1};
+    const product = await datamongoose.find();
+    const offerProduct = product.sort(function(a,b){return b.discount - a.discount});
+    
+    const result = offerProduct.slice(0,numProduct);
+    console.log(result);
+    return result;
+}
+
 exports.findHighlightsProduct = async (numProduct) => {
     const sort = {
-        releaseDay: -1,
         quantitySold: -1,
     };
     const product = await datamongoose.find().limit(numProduct).sort(sort);

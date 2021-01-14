@@ -56,17 +56,17 @@ productSchema.virtual('fdiscountprice').get(function() {
 });
 
 productSchema.virtual('discount').get(function() {
-    return this.baseprice-this.discountprice; 
+    return Math.ceil((this.baseprice-this.discountprice)*100/this.baseprice); 
 });
 
-productSchema.virtual('ram').get(function(){
-    let result;
-    if(this.storage!="None"){
-        result= this.storage.substring(0,this.storage.search(/[a-b]/i)-1);
-    }
-    else result = "0";
-    return +result;
-})
+// productSchema.virtual('ram').get(function(){
+//     let result;
+//     if(this.storage!="None"){
+//         result= this.storage.substring(0,this.storage.search(/[a-b]/i)-1);
+//     }
+//     else result = "0";
+//     return +result;
+// })
 
 
 productSchema.plugin(mongoosePaginate);

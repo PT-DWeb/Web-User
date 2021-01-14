@@ -40,12 +40,12 @@
 					<!-- first section -->
 					<div class="product-sec1 px-sm-4 px-3 py-sm-5  py-3 mb-4">
 						<div class="row">
-							<div class="mr-auto ml-5">
+							{{!-- <div class="mr-auto ml-5">
 								<button type="button" class="btn btn-secondary">Giá cao đến thấp</button>
 								<button type="button" class="btn btn-danger">
 									<a href="?"><i class="far fa-times-circle text-white"></i></a>
 								</button>
-							</div>
+							</div> --}}
 							<div class="btn-group ml-auto mr-5">
 								<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
 									aria-haspopup="true" aria-expanded="false">
@@ -140,9 +140,10 @@
 				<div class="side-bar p-sm-4 p-3">
 					<div class="search-hotel border-bottom py-2">
 						<form action="/mobilephonesbrands/filter" method="get">
-							<h2 class="agileits-sear-head mb-3">Bộ lọc</h2>
-							<input type="search" placeholder="Search Brand..." name="search">
-							<input type="submit" value=" ">
+							<div class="d-flex justify-content-between">
+								<h2 class="agileits-sear-head mb-3">Bộ lọc</h2>
+								<input type="submit" value=" ">
+							</div>
 							<div class="left-side py-2 border-bottom">
 								<h3 class="agileits-sear-head mb-3">Brand</h3>
 								<ul>

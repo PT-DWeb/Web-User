@@ -22,20 +22,12 @@ const paymentRouter = require('./routes/payment');
 const usersRouter = require('./routes/users');
 const authRouter = require('./routes/auth');
 const mailerRouter = require('./routes/mailer');
-<<<<<<< HEAD
-=======
 const userAccountRouter = require('./routes/userAccount');
->>>>>>> origin/18120318nv2
 
 
 //var usersRouter =  require('./routes/users');
 //var usersRouter = require('./routes/users');
 
-<<<<<<< HEAD
-=======
-
-
->>>>>>> origin/18120318nv2
 //var productsRouter = require('./routes/product'); //import den file js routing
 
 connectDB();
@@ -138,10 +130,7 @@ app.use('/payment', paymentRouter);
 app.use('/users', usersRouter);
 app.use('/auth', authRouter);
 app.use('/mail', mailerRouter);
-<<<<<<< HEAD
-=======
 app.use('/my-account', userAccountRouter);
->>>>>>> origin/18120318nv2
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

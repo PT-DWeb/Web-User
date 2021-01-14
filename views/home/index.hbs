@@ -55,7 +55,7 @@
 					<div class="product-sec1 px-sm-4 px-3 py-sm-5  py-3 mb-4">
 						<h3 class="heading-tittle text-center font-italic">ƯU ĐÃI HẤP DẪN</h3>
 						<div class="row">
-							{{#each newProduct}}
+							{{#each offerProduct}}
 							<div class="col-md-4 product-men mt-5">
 								<div class="men-pro-item simpleCart_shelfItem">
 									<div class="men-thumb-item text-center">
@@ -101,7 +101,7 @@
 					<div class="product-sec1 px-sm-4 px-3 py-sm-5  py-3 mt-4">
 						<h3 class="heading-tittle text-center font-italic">SẢN PHẨM NỔI BẬT</h3>
 						<div class="row">
-							{{#each newProduct}}
+							{{#each highLightProduct}}
 							<div class="col-md-4 product-men mt-5">
 								<div class="men-pro-item simpleCart_shelfItem">
 									<div class="men-thumb-item text-center">
@@ -141,9 +141,10 @@
 				<div class="side-bar p-sm-4 p-3">
 					<div class="search-hotel border-bottom py-2">
 						<form action="/mobilephonesbrands/filter" method="get">
-							<h2 class="agileits-sear-head mb-3">Bộ lọc</h2>
-							<input type="search" placeholder="Search Brand..." name="search">
-							<input type="submit" value=" ">
+							<div class="d-flex justify-content-between">
+								<h2 class="agileits-sear-head mb-3">Bộ lọc</h2>
+								<input type="submit" value=" ">
+							</div>
 							<div class="left-side py-2 border-bottom">
 								<h3 class="agileits-sear-head mb-3">Thương Hiệu</h3>
 								<ul>

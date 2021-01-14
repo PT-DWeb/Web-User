@@ -11,12 +11,13 @@ exports.product = async(req, res, next) => {
     //const product = await productService.findProduct();
     const newProduct = await productService.findNewProduct(3);
     const highLightProduct = await productService.findHighlightsProduct(3);
+    const offerProduct= await productService.findOfferProduct(3);
 
     //console.log(product);
     console.log("req.protocol");
     console.log(req.get('Host'));
     console.log(req.protocol);
-    res.render('home/index', {newProduct, highLightProduct, isLogin: false, display: true, register: true});
+    res.render('home/index', {newProduct,offerProduct, highLightProduct, isLogin: false, display: true, register: true});
 
 };
 

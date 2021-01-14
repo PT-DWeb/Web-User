@@ -5,28 +5,24 @@ const addToCart = (idProduct)=>{
         if (this.readyState == 4 && this.status == 200) {  
             const data = JSON.parse(this.responseText);
 
-            //document.getElementById("numbercart")=data.numProduct;
+           
             // document.getElementById("numProduct").innerHTML=data.numProduct;
-            // document.getElementById("totalPrice").innerHTML=data.totalPrice;
-        
-            try {
-                const script = document.getElementById("templateProduct").innerHTML;
-                const template = Handlebars.compile(script);
-                const render = template(
-                    {
-                        numProduct: data.numProduct,
-                        cover: data.product.cover,
-                        name: data.product.name,
-                        _id: data.product._id,
-                        quantity: data.product.quantity,
-                        ftotal: data.product.ftotal, 
-                    });
-                
-                console.log(document.getElementById(idProduct).innerHTML);
-                document.getElementById(idProduct).innerHTML = render;
-            } catch (err) {
-                alert("ERROR");
-            }
+            document.getElementById("totalPrice").innerHTML=data.totalPrice;
+            
+            const script = document.getElementById("templateProduct").innerHTML;
+            const template = Handlebars.compile(script);
+            const render = template(
+                {
+                    numProduct: data.numProduct,
+                    cover: data.product.cover,
+                    name: data.product.name,
+                    _id: data.product._id,
+                    quantity: data.product.quantity,
+                    ftotal: data.product.ftotal, 
+                });
+            
+            console.log(document.getElementById(idProduct).innerHTML);
+            document.getElementById(idProduct).innerHTML = render;
         }
     };
     xhttp.open("GET", url, true);
@@ -40,9 +36,10 @@ const popCart = (idProduct)=>{
         if (this.readyState == 4 && this.status == 200) {
             const data = JSON.parse(this.responseText);
             
-            //document.getElementById("numbercart")=data.numProduct;
+            // document.getElementById("numbercart")=data.numProduct;
             // document.getElementById("numProduct").innerHTML=data.numProduct;
-            // document.getElementById("totalPrice").innerHTML=data.totalPrice;
+            document.getElementById("totalPrice").innerHTML=data.totalPrice;
+           
             try {
             
                 const script = document.getElementById("templateProduct").innerHTML;
@@ -79,6 +76,15 @@ const removeProduct = (idProduct)=>{
             //document.getElementById("numbercart")=data.numProduct;
             document.getElementById("numProduct").innerHTML=data.numProduct;
             document.getElementById("totalPrice").innerHTML=data.totalPrice;
+
+            if(data.numProduct=="0"){
+                const script = document.getElementById("templateEmpty").innerHTML;
+                const template = Handlebars.compile(script);
+                const render = template();
+                document.getElementById("cart").innerHTML=script;
+            }
+
+            
         }
     };
     xhttp.open("GET", url, true);
@@ -86,7 +92,7 @@ const removeProduct = (idProduct)=>{
 }
 
 const validateName = ()=>{
-    let notify=document.getElementById("notify").innerHTML;
+    let notify="";
 
     const name = document.getElementById("name");
 
@@ -94,16 +100,15 @@ const validateName = ()=>{
         notify+="Tên người dùng không được bỏ trống <br>";
 
     document.getElementById("notify").innerHTML=notify;
-    alert(notify);
-    if(notify!="") {
-        
+   
+    if(notify!="") {   
         document.getElementById("notify").display="block";
     }
     else 
         document.getElementById("notify").display="none";
 }
 const validatePhone= ()=>{
-    let notify=document.getElementById("notify").innerHTML;
+    let notify="";
 
     const name = document.getElementById("name");
 
@@ -115,7 +120,6 @@ const validatePhone= ()=>{
         notify+="Số điện thoại không hợp lệ <br>";
     document.getElementById("notify").innerHTML=notify;
     if(notify!="") {
-        alert(notify);
         document.getElementById("notify").display="block";
     }
     else 
@@ -123,7 +127,7 @@ const validatePhone= ()=>{
 }
 
 const validateCity = ()=>{
-    let notify=document.getElementById("notify").innerHTML;
+    let notify="";
 
     const city = document.getElementById("city");
 
@@ -132,7 +136,7 @@ const validateCity = ()=>{
     
     document.getElementById("notify").innerHTML=notify;
     if(notify!="") {
-        alert(notify);
+
         document.getElementById("notify").display="block";
     }
     else 
@@ -140,7 +144,7 @@ const validateCity = ()=>{
 }  
 
 const validateDistrict = ()=>{
-    let notify=document.getElementById("notify").innerHTML;
+    let notify="";
 
     const district = document.getElementById("district");
 
@@ -150,7 +154,7 @@ const validateDistrict = ()=>{
     document.getElementById("notify").innerHTML=notify;
 
     if(notify!="") {
-        alert(notify);
+
         document.getElementById("notify").display="block";
     }
     else 
@@ -158,7 +162,7 @@ const validateDistrict = ()=>{
 }  
     
 const validateSubDistrict = ()=>{
-    let notify=document.getElementById("notify").innerHTML;
+    let notify="";
 
     const subDistrict = document.getElementById("subDistrict");
 
@@ -168,7 +172,7 @@ const validateSubDistrict = ()=>{
     document.getElementById("notify").innerHTML=notify;
 
     if(notify!="") {
-        alert(notify);
+ 
         document.getElementById("notify").display="block";
     }
     else 
@@ -176,7 +180,7 @@ const validateSubDistrict = ()=>{
 }  
 
 const validateStreet = ()=>{
-    let notify=document.getElementById("notify").innerHTML;
+    let notify="";
 
     const street = document.getElementById("street");
 
@@ -186,7 +190,6 @@ const validateStreet = ()=>{
     document.getElementById("notify").innerHTML=notify;
 
     if(notify!="") {
-        alert(notify);
         document.getElementById("notify").display="block";
     }
     else 

@@ -12,7 +12,8 @@ function postComment(){
 
     postBody += "txtComment=" + inpTxtComment.value;
     postBody += "&nameUser="+inptTxtName.value;
-    postBody += "&avatar="+avatar.value;
+    if(avatar.value!="")
+        postBody += "&avatar="+avatar.value;
     
     let xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
@@ -102,11 +103,13 @@ function postChildComment(idParentComment){
     }
 
     let postBody = "";
+
     
 
     postBody += "txtComment=" + inpTxtChildComment.value;
     postBody += "&idParentComment=" + idParentComment;
-    postBody += "&avatar="+avatar.value;
+    if(avatar.value!="")
+        postBody += "&avatar="+avatar.value;
     //postBody += "&nameUser="+inptTxtName.value;
     let xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
