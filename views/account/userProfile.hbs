@@ -112,11 +112,14 @@
                                 {{#if setActiveChangePassTab}}
                                     <li class="nav-item"><a  class="nav-link" data-toggle="tab" href="#info">Thông tin</a></li>
                                     <li class="nav-item"><a  class="nav-link" data-toggle="tab" href="#modifyInfo">Chỉnh sửa</a></li>
-                                    <li class="nav-item active"><a  class="nav-link active" data-toggle="tab" href="#changePassword">Đổi mật khẩu</a></li>
+                                     <li class="nav-item"><a  class="nav-link" data-toggle="tab" href="#changePassword">Đổi mật khẩu</a></li>
                                 {{else}}
                                     <li class="nav-item active"><a  class="nav-link active" data-toggle="tab" href="#info">Thông tin</a></li>
                                     <li class="nav-item"><a  class="nav-link" data-toggle="tab" href="#modifyInfo">Chỉnh sửa</a></li>
+                                    {{#if user.password}}
                                     <li class="nav-item"><a  class="nav-link" data-toggle="tab" href="#changePassword">Đổi mật khẩu</a></li>
+                                    {{/if}}
+                                    <li class="nav-item"><a  class="nav-link" data-toggle="tab" href="#modifyInfo">Lịch sử đơn hàng</a></li>
                                 {{/if}}
                                
                             </ul>
@@ -252,10 +255,12 @@
                                             <label for="confirmPassword">Xác nhận mật khẩu mới:</label>
                                             <input type="password" class="form-control" id="confirm_password" name="confirmPassword" value="" required>
                                         </div>
+                                       
                                         <div class="form-group col-12">
                                             <button type="submit" class="btn btn-primary mr-2" >Đổi mật khẩu</button>
                                             <a class="btn btn-danger" href="/my-account/{{accountInfo._id}}">Hủy</a>
                                         </div>
+                    
                                     </form>
                                     
                                 </div><!--/tab-pane-->
