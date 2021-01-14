@@ -3,15 +3,20 @@ const accountModel = require('../models/mongoose/userModel');
 
 exports.displayAccInfo = async (req, res, next) => {
     //console.log(req.user)
+    
     if(!req.user)
     {
         res.redirect('/users/login');
     }
     else
     {
+       
     const accountInfo = await userAccountService.getAccInfo(req, res, next);
     const genderSelector = await userAccountService.getSelectedGender(req, res, next);
-    res.render('account/userProfile', {accountInfo, genderSelector, setActiveChangePassTab: false});
+    res.render('account/userProfile', {accountInfo, 
+        genderSelector, 
+        setActiveChangePassTab: false,
+        });
     }
    
 }

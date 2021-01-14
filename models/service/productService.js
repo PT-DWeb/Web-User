@@ -1,9 +1,10 @@
 const datamongoose = require("../mongoose/productModel");
 const manufacturerModel = require("../mongoose/manufacturerModel");
+const detailOrderModel = require("../mongoose/detailOrderModel");
 const { ObjectId } = require("mongodb");
 
-const changeIdManufacturer= async()=>{
-    const products=await datamongoose.find();
+const changeIdManufacturer = async () => {
+    const products = await datamongoose.find();
     let idmanufacturer;
     var iphone = /ipho/i;
     var samsung = /sam/i;
@@ -92,7 +93,7 @@ exports.listmobiles = async (pageNumber, itemPerPage, filter, sort) => {
         offset: (pageNumber - 1) * itemPerPage,
         limit: itemPerPage,
         sort: sort,
-        
+
     }
     const listmobiles = await datamongoose.paginate(filter, option);
     return listmobiles;
@@ -105,7 +106,7 @@ exports.findProduct = async (object) => {
     return product;
 };
 
-exports.findOneProduct = async(object) =>{
+exports.findOneProduct = async (object) => {
     const product = await datamongoose.findOne(object);
     //console.log(product);
     return product;
@@ -138,6 +139,8 @@ exports.findHighlightsProduct = async (numProduct) => {
     return product;
 }
 
+
+// Sản phẩm liên quan
 exports.findSimilarProduct = async (filter) => {
     const numProduct = 4;
     const diff = 1000000;
@@ -148,17 +151,86 @@ exports.findSimilarProduct = async (filter) => {
     //     {
     //         'discountprice': { $gte: product.discountprice - diff, $lte: product.discountprice + diff },
     //     }]
-    // }).limit(4);
+    // }).
+    //     limit(4);
 
-    const similarProduct = await datamongoose.find({
-        _id: { $ne: product._id },
-        $or: [{ 'idmanufacturer': product.idmanufacturer },
-        {
-            'discountprice': { $gte: product.discountprice - diff, $lte: product.discountprice + diff },
-        }]
-    }).limit(numProduct);
+    console.log(product._id);
+    const detailOrder = await detailOrderModel.find({
+        idProduct: product._id,
+    });
+    let length = detailOrder.length;
+    let listIdOrder = [];
+    // List IdOrder tung dat san pham dang xem
+    console.log("detailOrder")
+    console.log(detailOrder)
 
-    return similarProduct;
+    for (let i = 0; i < length; i++) {
+        listIdOrder.push({ "idOrder": detailOrder[i].idOrder });
+    }
+
+
+    console.log("Batdau");
+    //console.log();
+    console.log(listIdOrder);
+    console.log("ket thuc")
+    // Tim san pham nam trong list IdOrder khac san pham dang xem
+    const similarProduct = await detailOrderModel.distinct("idProduct", {
+        idProduct: { $ne: product._id },
+        $or: listIdOrder
+    })
+
+    console.log("similar")
+    console.log(similarProduct);
+
+    // List san pham lien quan khong trung lap
+    length = similarProduct.length;
+
+    let listIdProduct = [];
+    let listOjectIdProduct = [];
+    for (let i = 0; i < length; i++) {
+        listIdProduct.push((similarProduct[i]).toString());
+        listOjectIdProduct.push({ "_id": similarProduct[i] });
+    }
+
+    console.log("listOjectIdProduct")
+    console.log(listOjectIdProduct);
+
+    console.log(listOjectIdProduct.length)
+    if (listOjectIdProduct.length < 4) {
+        const similarManufactProduct = await datamongoose.find({
+            _id: { $ne: product._id },
+            $or: [{ 'idmanufacturer': product.idmanufacturer },
+            {
+                'discountprice': { $gte: product.discountprice - diff, $lte: product.discountprice + diff },
+            }]
+        })
+        i = 0;
+        for (i; i < similarManufactProduct.length; i++) {
+            if (listOjectIdProduct.length == 4) {
+                break;
+            }
+            list = ["5fe63633072b293538fffd28", "5fe63633072b293538fffd30"]
+            console.log("-----------------aaaaagfdgrg");
+            console.log(similarManufactProduct[i]._id);
+            console.log("so sanh");
+            console.log(listIdProduct.includes((similarManufactProduct[i]._id).toString()))
+            if (!listIdProduct.includes((similarManufactProduct[i]._id).toString())) {
+                console.log("-----------------aaaaagfgoạioahdgrg");
+
+                listIdProduct.push((similarManufactProduct[i]._id).toString());
+                listOjectIdProduct.push({ "_id": similarManufactProduct[i]._id });
+                console.log(listIdProduct);
+                console.log(listOjectIdProduct);
+            }
+        }
+    }
+
+    const result = await datamongoose.find({
+        $or: listOjectIdProduct,
+    })
+    console.log("similarProduct")
+    console.log(result);
+    return result;
 }
 
 exports.findProductByInfo = async (filter, itemPerPage, pageNumber) => {
@@ -225,9 +297,9 @@ exports.findProductByInfo = async (filter, itemPerPage, pageNumber) => {
             else if (storage === 8) {
                 // Tu 4tr den 8tr
                 conditionram.push({ 'storage': /^4GB/ });
-        
+
                 conditionram.push({ 'storage': /^6GB/ });
-               
+
                 conditionram.push({ 'storage': /^8GB/ });
             }
         }

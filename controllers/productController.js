@@ -100,6 +100,7 @@ exports.detail = async (req, res, next) => {
     //Tìm những sản phẩm liên quan
     const similarProduct = await productService.findSimilarProduct({_id:idProduct});
 
+
     const page= +req.query.page || 1;;
     const limit=10;
     //Tìm những comment

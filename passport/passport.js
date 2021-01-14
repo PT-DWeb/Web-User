@@ -14,6 +14,9 @@ passport.use(new LocalStrategy(
         if (!user) {
             return done(null, false, { message: 'Tên đăng nhập hoặc mật khẩu nhập sai!!!!' });
         }
+        if (user.accountState === 0) {
+            return done(null, false, { message: 'Tài khoản của bạn đã bị khóa!!!!' });
+        }
 
         return done(null, user);
     }
@@ -52,6 +55,9 @@ passport.use(new GoogleStrategy({
 
             
             if (user) {
+                if (user.accountState === 1) {
+                    return done(null, false, { message: 'Tài khoản của bạn đã bị khóa!!!!' });
+                }
                 if(user.id)
                 {
                     return done(null, user);
