@@ -73,30 +73,28 @@
 		<div class="checkout-left">
 			<div class="address_form_agile mt-sm-5 mt-4">
 				<h4 class="mb-sm-4 mb-3">Thông tin đơn hàng</h4>
-				<div class="alert alert-danger d-none" id="notify" role="alert">
-  					
-				</div>
+				<div class="alert alert-danger" id="notify" role="alert" data-dismiss="alert" aria-label="Close"></div>
 				<form action="/payment/payment" method="post" class="creditly-card-form agileinfo_form">
 					<div class="creditly-wrapper wthree, w3_agileits_wrapper">
 						<div class="information-wrapper">
 							<div class="first-row">
 								<div class="controls form-group">
 									<input class="billing-address-name form-control" type="text" name="name" id="name"
-										placeholder="Họ & Tên" value="{{user.name}}" onchange="validate()">
+										placeholder="Họ & Tên" value="{{user.name}}" onchange="validateName()">
 								</div>
 								<div class="w3_agileits_card_number_grids">
 									<div class="w3_agileits_card_number_grid_left form-group">
 										<div class="controls">
 											<input type="text" class="form-control" placeholder="Số điện thoại"
-												name="phoneNumber" id="phoneNumber" value="{{user.phoneNumber}}" onchange="validate()">
+												name="phoneNumber" id="phoneNumber" value="{{user.phoneNumber}}" onchange="validatePhone()">
 										</div>
 									</div>
 								</div>
 								<div class="controls form-group">
-									<input type="text" class="form-control" placeholder="Tỉnh/Thành phố" name="city" id="city" onchange="validate()">
-									<input type="text" class="form-control" placeholder="Quận/Huyện" name="district" id="district" onchange="validate()">
-									<input type="text" class="form-control" placeholder="Phường/Xã" name="subDistrict" id="subDistrict" onchange="validate()">
-									<input type="text" class="form-control" placeholder="Tòa nhà/Tên đường" name="street" id="street" onchange="validate()">
+									<input type="text" class="form-control" placeholder="Tỉnh/Thành phố" name="city" id="city" onchange="validateCity()">
+									<input type="text" class="form-control" placeholder="Quận/Huyện" name="district" id="district" onchange="validateDistrict()">
+									<input type="text" class="form-control" placeholder="Phường/Xã" name="subDistrict" id="subDistrict" onchange="validateSubDistrict()">
+									<input type="text" class="form-control" placeholder="Tòa nhà/Tên đường" name="street" id="street" onchange="validateStreet()">
 								</div>
 								<div class="controls form-group">
 									<select class="option-w3ls" name="paymentMethod" placeholder="Phương thức thanh toán">
@@ -104,14 +102,15 @@
 										<option value="2">Thanh toán online</option>
 									</select>
 								</div>
+								
 								<div class="my-3 text-left">
-									<div class="my-3">
-										<span class="h4 text-black">Tổng tiền hàng: 
-											<span class="text-danger" id="totalPrice">{{totalPrice}}đ</span></span><br>
+									<div class="my-3 h4">
+											<span class="text-dark">Tổng tiền hàng: </span>
+											<span class="text-danger" id="totalPrice">{{totalPrice}}đ</span><br>
 									</div>
 									
 								</div>
-								<button type="submit" class="submit check_out btn my-3">Delivery to this Address</button>
+								<button type="submit" class="submit check_out btn my-3">Thanh Toán</button>
 							</div>
 						</div>
 				</form>

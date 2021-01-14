@@ -10,3 +10,9 @@ exports.addOrder = async(object)=>{
 exports.updateOrder = async(newObject)=>{
     await orderModel.findOneAndUpdate(newObject);
 }
+
+exports.getListOrder = async(query)=>{
+    const listOrder = await orderModel.find(query).sort({orderDate:-1});
+
+    return listOrder;
+}

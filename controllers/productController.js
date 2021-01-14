@@ -8,13 +8,15 @@ const commentService = require('../models/service/commentService');
 
 exports.product = async(req, res, next) => {
     //Lấy dữ liệu 
-    const product = await productService.findProduct();
+    //const product = await productService.findProduct();
+    const newProduct = await productService.findNewProduct(3);
+    const highLightProduct = await productService.findHighlightsProduct(3);
 
     //console.log(product);
     console.log("req.protocol");
     console.log(req.get('Host'));
     console.log(req.protocol);
-    res.render('home/index', {product, isLogin: false, display: true, register: true});
+    res.render('home/index', {newProduct, highLightProduct, isLogin: false, display: true, register: true});
 
 };
 
@@ -32,7 +34,6 @@ exports.brands = async (req, res, next) => {
     const limit = 9;
     // const offset =(page -1)*limit;
 
-    
     const nameManufacturer=req.params.nameManufacturer;
     const nameProduct=req.query.nameProduct;
     const searchValue=nameProduct;
@@ -93,6 +94,7 @@ exports.detail = async (req, res, next) => {
 
     //Tim dien thoai 
     const detail = await productService.findOneProduct({_id:idProduct});
+    await productService.increaseView({_id:idProduct},detail.trackNum);
     
     //Tìm những sản phẩm liên quan
     const similarProduct = await productService.findSimilarProduct({_id:idProduct});
@@ -173,7 +175,7 @@ exports.postComment = async(req,res,next)=>{
 }
 
 exports.loadPageComment = async(req,res,next)=>{
-    const page= +req.query.page || 1;;
+    const page= +req.query.page || 1;
     const limit=10;
     const idProduct=req.params.idProduct;
     
@@ -238,11 +240,39 @@ exports.filter = async(req,res,next)=>{
         release: req.query.release,
     };
 
-    const product = await productService.findProductByInfo(filter)
+    const page= +req.query.page || 1;
+    const limit=9;
+    const allmobiles = await productService.findProductByInfo(filter,limit,page);
     
-    console.log(product);
+    const pageItem=[];
+    let start=1;
+    if(allmobiles.totalPages>=5 && page>=allmobiles.totalPages-1)
+        start=allmobiles.totalPages-4;
+    else if(page>2) 
+        start=page-2;
+
+    let n=start;
+    while(start<n+5 && start<=allmobiles.totalPages ){
+        const items={
+            value:start,
+            url: addParameterToURL(req.url, "page",start),
+            isActive: start===page
+        }
+        pageItem.push(items);
+        start+=1;
+    }
+
+    console.log(pageItem);
+
     res.render('home/allmobiles',{
-        allmobiles: product,
+        allmobiles: allmobiles.docs,
+        allmobiles: allmobiles.docs,
+        isPagination: allmobiles.totalPages>1,
+        pageItem: pageItem, 
+        prevPage: addParameterToURL(req.url,"page",allmobiles.prevPage), 
+        nextPage: addParameterToURL(req.url,"page",allmobiles.nextPage),
+        canGoPrev: allmobiles.hasPrevPage,
+        canGoNext: allmobiles.hasNextPage,
         isLogin:false,
     });
 }

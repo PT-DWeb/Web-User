@@ -1,5 +1,5 @@
 const commentModel = require('../mongoose/commentModel');
-
+//const userService = require('./userService')
 const limit=10;
 
 exports.Comment = async(pageNumber, itemPerPage, filter)=>{
@@ -41,7 +41,7 @@ exports.addComment = async(data)=>{
         content: data.txtComment,
         cmtDate: Date.now(),
         avatar: data.avatar==undefined?"/images/user.jpg":data.avatar,
-        nameCustomer: data.nameCustomer==undefined?"Minh Trí":data.nameCustomer,  
+        nameCustomer: data.nameUser==undefined?"Ẩn Danh":data.nameUser,  
     };
     if(data.idParentComment!=undefined) doc.idParentCmt=data.idParentComment;
     const comment = new commentModel(doc);

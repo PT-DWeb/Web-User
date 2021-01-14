@@ -85,33 +85,113 @@ const removeProduct = (idProduct)=>{
     xhttp.send();
 }
 
-const validate = ()=>{
-    const notify="";
+const validateName = ()=>{
+    let notify=document.getElementById("notify").innerHTML;
 
     const name = document.getElementById("name");
-    const phoneNumber = document.getElementById("phoneNumber");
-    const city = document.getElementById("city");
-    const district = document.getElementById("district");
-    const subDistrict = document.getElementById("subDistrict");
-    const street = document.getElementById("street");
 
     if(name.value==="")
         notify+="Tên người dùng không được bỏ trống <br>";
+
+    document.getElementById("notify").innerHTML=notify;
+    alert(notify);
+    if(notify!="") {
+        
+        document.getElementById("notify").display="block";
+    }
+    else 
+        document.getElementById("notify").display="none";
+}
+const validatePhone= ()=>{
+    let notify=document.getElementById("notify").innerHTML;
+
+    const name = document.getElementById("name");
+
+    const phoneNumber = document.getElementById("phoneNumber");
+
     if(phoneNumber.value==="")
         notify+="Số điện thoại không được bỏ trống <br>";
+    else if(phoneNumber.value.match("/^[0-9]+$/") || phoneNumber.value.length<9)
+        notify+="Số điện thoại không hợp lệ <br>";
+    document.getElementById("notify").innerHTML=notify;
+    if(notify!="") {
+        alert(notify);
+        document.getElementById("notify").display="block";
+    }
+    else 
+        document.getElementById("notify").display="none";
+}
+
+const validateCity = ()=>{
+    let notify=document.getElementById("notify").innerHTML;
+
+    const city = document.getElementById("city");
+
     if(city.value==="")
         notify+="Tỉnh/Thành phố không được bỏ trống <br>";
+    
+    document.getElementById("notify").innerHTML=notify;
+    if(notify!="") {
+        alert(notify);
+        document.getElementById("notify").display="block";
+    }
+    else 
+        document.getElementById("notify").display="none";
+}  
+
+const validateDistrict = ()=>{
+    let notify=document.getElementById("notify").innerHTML;
+
+    const district = document.getElementById("district");
+
     if(district.value==="")
         notify+="Quận/Huyện không được bỏ trống <br>";
+
+    document.getElementById("notify").innerHTML=notify;
+
+    if(notify!="") {
+        alert(notify);
+        document.getElementById("notify").display="block";
+    }
+    else 
+        document.getElementById("notify").display="none";
+}  
+    
+const validateSubDistrict = ()=>{
+    let notify=document.getElementById("notify").innerHTML;
+
+    const subDistrict = document.getElementById("subDistrict");
+
     if(subDistrict.value==="")
         notify+="Xã/Thị trấn không được bỏ trống <br>";
+
+    document.getElementById("notify").innerHTML=notify;
+
+    if(notify!="") {
+        alert(notify);
+        document.getElementById("notify").display="block";
+    }
+    else 
+        document.getElementById("notify").display="none";
+}  
+
+const validateStreet = ()=>{
+    let notify=document.getElementById("notify").innerHTML;
+
+    const street = document.getElementById("street");
+
     if(street.value==="")
         notify+="Số nhà/Tên đường không được bỏ trống <br>";
 
-    if(phoneNumber.value.match("/^[0-9]+$/") || phoneNumber.value.length<9)
-        notify+="Số điện thoại không hợp lệ <br>";
-    
     document.getElementById("notify").innerHTML=notify;
-    if(notify!="") document.getElementById("notify").display="block";
-    else document.getElementById("notify").display="none";
-}
+
+    if(notify!="") {
+        alert(notify);
+        document.getElementById("notify").display="block";
+    }
+    else 
+        document.getElementById("notify").display="none";
+}  
+    
+    
+    

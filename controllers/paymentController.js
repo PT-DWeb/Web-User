@@ -175,3 +175,14 @@ exports.removeCart =async (req,res,next)=>{
         numProduct: numProduct,
         totalPrice: handle.formatConcurency(totalPrice)});
 }
+
+
+exports.history=async(req,res,next)=>{
+    const idUser=req.params.idUser;
+    const listOrder = await orderService.getListOrder({_id:idUser});
+    console.log(listOrder);
+    res.render('home/history',{
+        listOrder: listOrder,
+        isEmpty: listOrder.length<=0
+    });
+}

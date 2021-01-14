@@ -128,20 +128,29 @@ exports.findHighlightsProduct = async (numProduct) => {
 }
 
 exports.findSimilarProduct = async (filter) => {
+    const numProduct = 4;
     const diff = 1000000;
     const product = await datamongoose.findOne(filter);
+    // const similarProduct = await datamongoose.find({
+    //     _id: { $ne: product._id },
+    //     $or: [{ 'idmanufacturer': product.idmanufacturer },
+    //     {
+    //         'discountprice': { $gte: product.discountprice - diff, $lte: product.discountprice + diff },
+    //     }]
+    // }).limit(4);
+
     const similarProduct = await datamongoose.find({
         _id: { $ne: product._id },
         $or: [{ 'idmanufacturer': product.idmanufacturer },
         {
             'discountprice': { $gte: product.discountprice - diff, $lte: product.discountprice + diff },
         }]
-    }).
-        limit(4);
+    }).limit(numProduct);
+
     return similarProduct;
 }
 
-exports.findProductByInfo = async (filter) => {
+exports.findProductByInfo = async (filter, itemPerPage, pageNumber) => {
     console.log(filter);
 
     let idmanufacturer = "";
@@ -265,10 +274,19 @@ exports.findProductByInfo = async (filter) => {
 
     //Query
 
-
-    const data = await datamongoose.find(querydata)
+    const option = {
+        offset: (pageNumber - 1) * itemPerPage,
+        limit: itemPerPage,
+    }
+    const data = await datamongoose.paginate(querydata,option)
 
 
     console.log(data);
     return data;
+}
+
+exports.increaseView = async(filter, trackNum)=>{
+    await datamongoose.findByIdAndUpdate(filter,{
+        trackNum: trackNum+1
+    });
 }

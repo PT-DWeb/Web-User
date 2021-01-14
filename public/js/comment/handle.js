@@ -1,8 +1,9 @@
 
 function postComment(){
-
     const url = window.location.href;
     const inpTxtComment = document.getElementById("inpTxtComment");
+    const inptTxtName = document.getElementById("inpTxtName");
+    const avatar= document.getElementById("inpAvatar");
     if (inpTxtComment.value === "") {
         return;
     }
@@ -10,6 +11,9 @@ function postComment(){
     let postBody = "";
 
     postBody += "txtComment=" + inpTxtComment.value;
+    postBody += "&nameUser="+inptTxtName.value;
+    postBody += "&avatar="+avatar.value;
+    
     let xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
@@ -90,15 +94,20 @@ function loadChildComment(idParentComment){
 function postChildComment(idParentComment){
     const url = window.location.href;
     const inpTxtChildComment = document.getElementById("inpTxtChild"+idParentComment);
+    const avatar= document.getElementById("inpAvatar");
+    const inptTxtName = document.getElementById("inpTxtName");
     
     if (inpTxtChildComment.value === "") {
         return;
     }
 
     let postBody = "";
+    
 
     postBody += "txtComment=" + inpTxtChildComment.value;
     postBody += "&idParentComment=" + idParentComment;
+    postBody += "&avatar="+avatar.value;
+    //postBody += "&nameUser="+inptTxtName.value;
     let xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {

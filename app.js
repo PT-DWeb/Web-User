@@ -27,8 +27,6 @@ const mailerRouter = require('./routes/mailer');
 //var usersRouter =  require('./routes/users');
 //var usersRouter = require('./routes/users');
 
-
-
 //var productsRouter = require('./routes/product'); //import den file js routing
 
 connectDB();

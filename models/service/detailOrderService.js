@@ -10,3 +10,9 @@ exports.addDetailOrder= async (object)=>{
 
     detailOrder.save();
 }
+
+exports.findDetailOrder= async (query)=>{
+    const listDetailOrder = await detailOrderModel.find(query);
+    
+    return listDetailOrder;
+}

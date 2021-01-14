@@ -81,14 +81,17 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 						</li> --}}
 
 						<li class="text-center border-right text-white">
-							<a class="text-white nav-link" href="#" role="button" data-toggle="dropdown"
-								>
+							<a class="text-white nav-link" href="#" role="button" data-toggle="dropdown">
 								<i class="fas fa-user-circle"></i> Tài khoản </a>
 							</a>
 							<div class="dropdown-menu">
 								<p class="dropdown-item"><b>Xin chào {{user.name}}!!!</b></p>
-								<a class="dropdown-item" href="/users/edit/{{user._id}}">Hồ sơ cá nhân</a>
-								<a class="dropdown-item" href="/users/logout">Đăng xuất</a>
+								<a class="dropdown-item" href="/users/edit/{{user._id}}">
+									<i class="fas fa-user"></i> Hồ sơ cá nhân</a>
+								<a class="dropdown-item" href="/payment/history/{{user._id}}">
+									<i class="fas fa-align-left"></i> Lịch sử đơn hàng</a>
+								<a class="dropdown-item" href="/users/logout">
+									<i class="fas fa-sign-out-alt"></i> Đăng xuất</a>
 							</div>
 						</li>
 						{{else}}
@@ -522,6 +525,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 						<!-- cart details -->
 						<div class="col-2 pt-1 top_nav_right text-center ">
 							<form action="/payment/cart" method="get">
+								
 								<button class="btn btn-primary my-2 py-2 my-sm-0" type="submit">
 									<i class="fas fa-cart-arrow-down"></i>
 									{{!-- <span id="numbercart">{{numberProduct}}</span> --}}
