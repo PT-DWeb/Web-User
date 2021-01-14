@@ -40,12 +40,10 @@ exports.payment = async(req, res, next) => {
 
     const cart = await cartService.cart(sessionId); 
 
-    // console.log("PAYMENT");
-    // console.log(req.body);
-    // console.log(req.user._id);
+    //console.log(req.body);
     //Tạo hóa đơn
     const object={
-        orderDate: Date.now(),
+        orderDate: new Date(),
         street: req.body.street,
         subDistrict: req.body.subDistrict,
         district: req.body.district,
@@ -53,8 +51,8 @@ exports.payment = async(req, res, next) => {
 
         idCustomer: req.user._id,
         phone: req.body.phoneNumber,
-        //paymentMethod: req.body.paymentMethod,
-        //orderStatus: Để mặc định là chưa giao   
+        paymentMethod: req.body.paymentMethod,
+        orderStatus: "5fef361f5a75811ec4f91033",  
     }
     const idOrder = await orderService.addOrder(object);
 
@@ -69,13 +67,13 @@ exports.payment = async(req, res, next) => {
         product.total= parseInt(cartProduct[i])*parseInt(product.discountprice);
         product.quantity= parseInt(cartProduct[i]);
 
-        console.log(product);
+        await productService.increaseQuantity({_id:product._id},product.quantitySold,product.quantityAvailable,product.quantity);
         detailOrderService.addDetailOrder(product);
         totalPrice+=product.total;
         numProduct+=1;
     }
     
-    await orderService.updateOrder({total: totalPrice});
+    await orderService.updateOrder({_id:idOrder},{total: totalPrice});
 
     //Xóa dữ liệu trong cart giỏ hàng
     res.clearCookie('cartSession');

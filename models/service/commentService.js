@@ -16,8 +16,10 @@ exports.Comment = async(pageNumber, itemPerPage, filter)=>{
     const listComment = await commentModel.paginate(filter,option);
     
     let count=0;
- 
-    for(let i=0; i<listComment.totalDocs;i++){
+    //console.log(listComment);
+    let size = pageNumber<listComment.totalPages?10:listComment.totalDocs-(pageNumber-1)*itemPerPage;
+    for(let i=0; i<size;i++){
+        
         listComment.docs[i].numChild = await commentModel.countDocuments({idParentCmt:listComment.docs[i]._id, 
                                         idProduct: listComment.docs[i].idProduct});
     }

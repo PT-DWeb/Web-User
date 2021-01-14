@@ -127,7 +127,7 @@ exports.findOfferProduct = async (numProduct) => {
     const offerProduct = product.sort(function(a,b){return b.discount - a.discount});
     
     const result = offerProduct.slice(0,numProduct);
-    console.log(result);
+    // console.log(result);
     return result;
 }
 
@@ -169,18 +169,19 @@ exports.findSimilarProduct = async (filter) => {
     }
 
 
-    console.log("Batdau");
+    // console.log("Batdau");
     //console.log();
-    console.log(listIdOrder);
-    console.log("ket thuc")
+    // console.log(listIdOrder);
+    // console.log("ket thuc")
+
     // Tim san pham nam trong list IdOrder khac san pham dang xem
     const similarProduct = await detailOrderModel.distinct("idProduct", {
         idProduct: { $ne: product._id },
         $or: listIdOrder
     })
 
-    console.log("similar")
-    console.log(similarProduct);
+    // console.log("similar")
+    // console.log(similarProduct);
 
     // List san pham lien quan khong trung lap
     length = similarProduct.length;
@@ -192,10 +193,10 @@ exports.findSimilarProduct = async (filter) => {
         listOjectIdProduct.push({ "_id": similarProduct[i] });
     }
 
-    console.log("listOjectIdProduct")
-    console.log(listOjectIdProduct);
+    // console.log("listOjectIdProduct")
+    // console.log(listOjectIdProduct);
 
-    console.log(listOjectIdProduct.length)
+    //console.log(listOjectIdProduct.length)
     if (listOjectIdProduct.length < 4) {
         const similarManufactProduct = await datamongoose.find({
             _id: { $ne: product._id },
@@ -210,17 +211,17 @@ exports.findSimilarProduct = async (filter) => {
                 break;
             }
             list = ["5fe63633072b293538fffd28", "5fe63633072b293538fffd30"]
-            console.log("-----------------aaaaagfdgrg");
-            console.log(similarManufactProduct[i]._id);
-            console.log("so sanh");
-            console.log(listIdProduct.includes((similarManufactProduct[i]._id).toString()))
+            // console.log("-----------------aaaaagfdgrg");
+            // console.log(similarManufactProduct[i]._id);
+            // console.log("so sanh");
+            // console.log(listIdProduct.includes((similarManufactProduct[i]._id).toString()))
             if (!listIdProduct.includes((similarManufactProduct[i]._id).toString())) {
                 console.log("-----------------aaaaagfgoạioahdgrg");
 
                 listIdProduct.push((similarManufactProduct[i]._id).toString());
                 listOjectIdProduct.push({ "_id": similarManufactProduct[i]._id });
-                console.log(listIdProduct);
-                console.log(listOjectIdProduct);
+                // console.log(listIdProduct);
+                // console.log(listOjectIdProduct);
             }
         }
     }
@@ -228,8 +229,8 @@ exports.findSimilarProduct = async (filter) => {
     const result = await datamongoose.find({
         $or: listOjectIdProduct,
     })
-    console.log("similarProduct")
-    console.log(result);
+    // console.log("similarProduct")
+    // console.log(result);
     return result;
 }
 
@@ -371,5 +372,12 @@ exports.findProductByInfo = async (filter, itemPerPage, pageNumber) => {
 exports.increaseView = async(filter, trackNum)=>{
     await datamongoose.findByIdAndUpdate(filter,{
         trackNum: trackNum+1
+    });
+}
+
+exports.increaseQuantity = async(filter,quantitySold,quantityAvailable, num)=>{
+    await datamongoose.findByIdAndUpdate(filter,{
+        quantitySold: quantitySold+num,
+        quantityAvailable: quantityAvailable-num
     });
 }

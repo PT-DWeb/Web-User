@@ -4,7 +4,7 @@ function postComment(){
     const inpTxtComment = document.getElementById("inpTxtComment");
     const inptTxtName = document.getElementById("inpTxtName");
     const avatar= document.getElementById("inpAvatar");
-    if (inpTxtComment.value === "") {
+    if (inpTxtComment.value === "" || inptTxtName==="") {
         return;
     }
 
@@ -98,16 +98,15 @@ function postChildComment(idParentComment){
     const avatar= document.getElementById("inpAvatar");
     const inptTxtName = document.getElementById("inpTxtName");
     
-    if (inpTxtChildComment.value === "") {
+    if (inpTxtChildComment.value === "" || inptTxtName==="") {
         return;
     }
 
     let postBody = "";
 
-    
-
     postBody += "txtComment=" + inpTxtChildComment.value;
     postBody += "&idParentComment=" + idParentComment;
+    postBody += "&nameUser="+inptTxtName.value;
     if(avatar.value!="")
         postBody += "&avatar="+avatar.value;
     //postBody += "&nameUser="+inptTxtName.value;

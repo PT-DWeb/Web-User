@@ -11,6 +11,5 @@ router.get('/cart',paymentController.cart);
 router.get('/cart/add',paymentController.addtoCart);
 router.get('/cart/pop',paymentController.popCart);
 router.get('/cart/remove',paymentController.removeCart);
-router.get('/history/:idUser',paymentController.history);
 
 module.exports = router;

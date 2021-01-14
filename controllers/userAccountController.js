@@ -1,4 +1,5 @@
 const userAccountService = require('../models/service/userAccountService');
+const orderService=require('../models/service/orderService');
 const accountModel = require('../models/mongoose/userModel');
 
 exports.displayAccInfo = async (req, res, next) => {
@@ -10,12 +11,20 @@ exports.displayAccInfo = async (req, res, next) => {
     }
     else
     {
-       
+    
     const accountInfo = await userAccountService.getAccInfo(req, res, next);
     const genderSelector = await userAccountService.getSelectedGender(req, res, next);
+
+    const idUser=req.params.id;
+    const listOrder = await orderService.getListOrder({idCustomer:idUser});
+    console.log("AAAAAAAÂ");
+    console.log(listOrder);
+
     res.render('account/userProfile', {accountInfo, 
         genderSelector, 
         setActiveChangePassTab: false,
+        listOrder: listOrder,
+        isEmpty: listOrder.length<=0,
         });
     }
    

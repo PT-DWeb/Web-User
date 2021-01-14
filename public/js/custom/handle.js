@@ -61,3 +61,9 @@ exports.calculateTime= (time)=>{
     }
     return result;
 }
+
+const formatTime = (time)=>{    
+    let result="";
+    result=time.getDate()+"-"+ time.getMonth()+ "-" + time.getYear();
+    return result;
+}
