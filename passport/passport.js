@@ -36,7 +36,7 @@ passport.deserializeUser(function (id, done) {
 passport.use(new GoogleStrategy({
     clientID: configAuth.googleAuth.clientID,
     clientSecret: configAuth.googleAuth.clientSecret,
-    callbackURL: configAuth.googleAuth.callbackURL||'http://store-user-web.herokuapp.com/auth/google/callback',
+    callbackURL:'http://store-user-web.herokuapp.com/auth/google/callback',
 },
     function (token, refreshToken, profile, done) {
         process.nextTick(async function () {
